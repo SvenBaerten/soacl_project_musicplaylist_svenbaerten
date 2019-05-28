@@ -11,3 +11,4 @@ npm-debug.log
 yarn-error.log
 
 /SOACL_Web_Services/SOAP_Web_Services/packages
+/SOACL_Web_Services/NodeJS_Web_Service/node_modules
