@@ -1,0 +1,14 @@
+{
+  "name": "nodejs_web_service_svenbaerten",
+  "version": "1.0.0",
+  "description": "Node.js web service running in Docker",
+  "author": "Sven Baerten <sven.baerten@outlook.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1",
+    "cors": "~2.8.5"
+  }
+}
