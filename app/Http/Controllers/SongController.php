@@ -43,7 +43,7 @@ class SongController extends Controller
     public function store(Request $request)
     {
         // Set this flag to True to use the custom made Azure web service implementations.
-        $FLAG_USE_AZURE = true;
+        $FLAG_USE_AZURE = false;
 
         // Set this flag to True to the use the Node.js DateSplitter web service instead of the SOAP version.
         $FLAG_USE_NODEJS_DATESPLITTER = true;
@@ -83,6 +83,7 @@ class SongController extends Controller
         // if ($err) ; 
 
         $json = json_decode($response, true);
+        // return $json;
         $youtube_entity = $json['items'][0];
         $youtube_snippet = $youtube_entity['snippet'];
         $youtube_title = $youtube_snippet['title'];
@@ -217,7 +218,7 @@ class SongController extends Controller
             }
             else
             {                
-                $nodejs_dateSplitter_base_url = 'http://localhost:8001/api/dateSplitter';
+                $nodejs_dateSplitter_base_url = 'http://192.168.99.100:8001/api/dateSplitter';
             }
             $nodejs_url = $nodejs_dateSplitter_base_url . '/' . $release_date;
 

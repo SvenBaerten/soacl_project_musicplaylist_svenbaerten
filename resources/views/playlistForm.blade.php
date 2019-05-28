@@ -22,5 +22,5 @@
             <small id="playlistImageHelp" class="form-text text-muted">Optional URL to an image</small>
         </div>  
     </div>
-    <button type="submit" class="btn btn-primary" onclick="sendPlaylistForm()">Submit</button>
+    <button type="button" class="btn btn-primary" onclick="sendPlaylistForm()">Submit</button>
 </form>

@@ -21,7 +21,8 @@ function getCSRFToken() {
 
 // Get view from Laravel
 function loadView_PlayMusic() {
-    var url = "http://localhost/musicplaylist/public/playlists";    // TODO: Vervangen door URL van Azure!            
+    // var url = "http://localhost/musicplaylist/public/playlists";    // TODO: Vervangen door URL van Azure!            
+    var url = "http://127.0.0.1:8000/playlists/";                
 
     fetch(url, {
         credentials: "same-origin",
@@ -42,7 +43,8 @@ function loadView_PlayMusic() {
 }
 
 function loadView_PlaylistForm() {
-    var url = "http://localhost/musicplaylist/public/playlists/create";                
+    // var url = "http://localhost/musicplaylist/public/playlists/create";
+    var url = "http://127.0.0.1:8000/playlists/create";                
 
     let view = 
         fetch(url, {
@@ -50,7 +52,7 @@ function loadView_PlaylistForm() {
             method: 'GET',
             headers:{
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCSRFToken()
+                'X-CSRF-TOKEN': getCSRFToken(),
             }
         })
         .then(function(response) {
@@ -63,7 +65,8 @@ function loadView_PlaylistForm() {
 }
 
 function loadView_SongForm() {
-    var url = "http://localhost/musicplaylist/public/songs/create";    
+    // var url = "http://localhost/musicplaylist/public/songs/create";  
+    var url = "http://127.0.0.1:8000/songs/create";   
 
     let view = 
         fetch(url, {
@@ -84,7 +87,8 @@ function loadView_SongForm() {
 }
 
 function loadView_User() {
-    var url = "http://localhost/musicplaylist/public/user";    
+    // var url = "http://localhost/musicplaylist/public/user";  
+    var url = "http://127.0.0.1:8000/user";   
 
     let view = 
         fetch(url, {
@@ -106,7 +110,6 @@ function loadView_User() {
 
 // Handling form submit buttons
 function sendPlaylistForm() {
-    alert('send playlist');
     let nameField = document.getElementById('formPlaylistName');
     let nameFieldValue = nameField.value;
     let ratingField = document.getElementById('formPlaylistRating');
@@ -120,7 +123,8 @@ function sendPlaylistForm() {
         nameField.style.backgroundColor = "LightCoral ";
     } else {
         nameField.style.backgroundColor = "lightgreen";
-        var url = "http://localhost/musicplaylist/public/playlists";                
+        // var url = "http://localhost/musicplaylist/public/playlists";  
+        var url = "http://127.0.0.1:8000/playlists";               
         var data = {'name': nameFieldValue, 'rating': ratingFieldValue, 'image': imageFieldValue};
 
         fetch(url, {
@@ -147,7 +151,8 @@ function sendSongForm() {
         youTubeCodeField.style.backgroundColor = "LightCoral ";
     } else {
         youTubeCodeField.style.backgroundColor = "lightgreen";
-        var url = "http://localhost/musicplaylist/public/songs";                
+        // var url = "http://localhost/musicplaylist/public/songs";  
+        var url = "http://127.0.0.1:8000/songs";              
         var data = {'youtube_code': youTubeCodeValue, 'playlist_name': playlistValue, 'rating': ratingFieldValue};
         console.log('send song');
 
@@ -183,7 +188,8 @@ function sendFormAuthUserSignup() {
         return;
     }
 
-    let url = "http://localhost/musicplaylist/public/api/auth/signup";                
+    // let url = "http://localhost/musicplaylist/public/api/auth/signup";
+    let url = "http://127.0.0.1:8000/api/auth/signup";
     let data = {'name': nameValue, 'email': emailValue, 'password': passwordValue, 'password_confirmation': passwordConfirmationValue};
 
     fetch(url, {
@@ -217,7 +223,8 @@ function sendFormAuthUserLogin() {
         return;
     }
 
-    let url = "http://localhost/musicplaylist/public/api/auth/login";                
+    // let url = "http://localhost/musicplaylist/public/api/auth/login";                
+    let url = "http://127.0.0.1:8000/api/auth/login";
     let data = {'email': emailValue, 'password': passwordValue};
 
     fetch(url, {
@@ -249,7 +256,8 @@ function sendFormAuthUserLogout() {
         return;
     }
 
-    let url = "http://localhost/musicplaylist/public/api/auth/logout";  
+    // let url = "http://localhost/musicplaylist/public/api/auth/logout";  
+    let url = "http://127.0.0.1:8000/api/auth/logout";
 
     fetch(url, {
         credentials: "same-origin",
@@ -285,8 +293,9 @@ var isVideoPlaying = false;
  // Sow playlists with songs
 function showPlaylistsWithSongs() {
     // alert('load');
-    var url = "http://localhost/musicplaylist/public/playlists/playlistswithsongs";    
-    
+    // var url = "http://localhost/musicplaylist/public/playlists/playlistswithsongs";    
+    var url = "http://127.0.0.1:8000/playlists/playlistswithsongs";    
+
     var x =
     fetch(url, {
         credentials: "same-origin",

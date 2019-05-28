@@ -26,5 +26,6 @@ Route::group([
         Route::get('user', 'AuthController@user');
     });
 });
+
 Route::resource('/playlists', 'PlaylistAPIController')->middleware('auth:api');
 
