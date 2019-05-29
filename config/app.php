@@ -166,6 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Barryvdh\Cors\ServiceProvider::class, // https://github.com/barryvdh/laravel-cors
 
         /*
          * Application Service Providers...
