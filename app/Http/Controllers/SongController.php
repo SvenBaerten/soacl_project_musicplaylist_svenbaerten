@@ -43,7 +43,7 @@ class SongController extends Controller
     public function store(Request $request)
     {
         // Set this flag to True to use the custom made Azure web service implementations.
-        $FLAG_USE_AZURE = false;
+        $FLAG_USE_AZURE = true;
 
         // Set this flag to True to the use the Node.js DateSplitter web service instead of the SOAP version.
         $FLAG_USE_NODEJS_DATESPLITTER = true;
