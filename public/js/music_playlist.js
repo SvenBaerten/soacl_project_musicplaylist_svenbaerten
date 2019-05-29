@@ -3,7 +3,7 @@
 //
 
 // Define base url for fetch api calls
-var flag_azure = false;
+var flag_azure = true;
 var base_url = '';
 if (flag_azure) base_url = "https://laravel-svenbaerten.azurewebsites.net";
 else base_url = "http://127.0.0.1:8000";
