@@ -25,6 +25,8 @@
             @yield('content')
         </div>
 
+        <div id="video-placeholder"></div> <!-- For YouTube video. -->
+
         <footer>
             @include('footer')
         </footer>        

@@ -8,12 +8,15 @@ var base_url = '';
 if (flag_azure) base_url = "https://laravel-svenbaerten.azurewebsites.net";
 else base_url = "http://127.0.0.1:8000";
 // base_url = "http://localhost/musicplaylist/public"
+
 //
 // Code for handling website navigation and loading html views.
 //
 
 /**
- * Get the csrf-token (see master.blade for meta tag).
+ * Get the csrf token (see master.blade for meta tag).
+ * 
+ * @returns {string} The csrf token.
  */
 function getCSRFToken() {
     return document.getElementsByName('csrf-token')[0].getAttribute('content');
@@ -54,8 +57,7 @@ function loadView_PlayMusic() {
     })
     .then(function(text) {        
         mainContainer.innerHTML = text;
-        showPlaylistsWithSongs();
-        return;
+        loadPlaylistsWithSongs();
     });           
 }
 
@@ -65,22 +67,20 @@ function loadView_PlayMusic() {
 function loadView_PlaylistForm() {
     var url = base_url + "/playlists/create";                
 
-    let view = 
-        fetch(url, {
-            credentials: "same-origin",
-            method: 'GET',
-            headers:{
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCSRFToken(),
-            }
-        })
-        .then(function(response) {
-            return response.text();
-        })
-        .then(function(text) {
-            mainContainer.innerHTML = text;
-            return;
-        });          
+    fetch(url, {
+        credentials: "same-origin",
+        method: 'GET',
+        headers:{
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCSRFToken(),
+        }
+    })
+    .then(function(response) {
+        return response.text();
+    })
+    .then(function(text) {
+        mainContainer.innerHTML = text;
+    });          
 }
 
 /**
@@ -89,22 +89,20 @@ function loadView_PlaylistForm() {
 function loadView_SongForm() {
     var url = base_url + "/songs/create";   
 
-    let view = 
-        fetch(url, {
-            credentials: "same-origin",
-            method: 'GET',
-            headers:{
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCSRFToken()
-            }
-        })
-        .then(function(response) {
-            return response.text();
-        })
-        .then(function(text) {
-            mainContainer.innerHTML = text;
-            return;
-        });          
+    fetch(url, {
+        credentials: "same-origin",
+        method: 'GET',
+        headers:{
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCSRFToken()
+        }
+    })
+    .then(function(response) {
+        return response.text();
+    })
+    .then(function(text) {
+        mainContainer.innerHTML = text;
+    });          
 }
 
 /**
@@ -113,34 +111,32 @@ function loadView_SongForm() {
 function loadView_User() {
     var url = base_url + "/user";   
 
-    let view = 
-        fetch(url, {
-            credentials: "same-origin",
-            method: 'GET',
-            headers:{
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCSRFToken()
-            }
-        })
-        .then(function(response) {
-            return response.text();
-        })
-        .then(function(text) {
-            document.getElementById('container').innerHTML = text;
-            return console.log(text);
-        });       
+    fetch(url, {
+        credentials: "same-origin",
+        method: 'GET',
+        headers:{
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCSRFToken()
+        }
+    })
+    .then(function(response) {
+        return response.text();
+    })
+    .then(function(text) {
+        document.getElementById('container').innerHTML = text;
+    });       
 }
 
 /**
  * Handle playlist form submit button.
  */
 function sendPlaylistForm() {
-    let nameField = document.getElementById('formPlaylistName');
-    let nameFieldValue = nameField.value;
-    let ratingField = document.getElementById('formPlaylistRating');
-    let ratingFieldValue = ratingField.value;
-    let imageField = document.getElementById('formPlaylistImage');
-    let imageFieldValue = imageField.value;
+    var nameField = document.getElementById('formPlaylistName');
+    var nameFieldValue = nameField.value;
+    var ratingField = document.getElementById('formPlaylistRating');
+    var ratingFieldValue = ratingField.value;
+    var imageField = document.getElementById('formPlaylistImage');
+    var imageFieldValue = imageField.value;
 
     if (imageFieldValue == "") imageFieldValue = "https://media.tmicdn.com/catalog/product/cache/c687aa7517cf01e65c009f6943c2b1e9/m/u/music-note-temporary-tattoo_2597.jpg";
 
@@ -167,12 +163,12 @@ function sendPlaylistForm() {
  * Handle song form submit button.
  */
 function sendSongForm() { 
-    let youTubeCodeField = document.getElementById('formSongYoutubeCode');
-    let youTubeCodeValue = youTubeCodeField.value;
-    let playlistField = document.getElementById('formSelectPlaylist');
-    let playlistValue = playlistField.value;
-    let ratingField = document.getElementById('formSongRating');
-    let ratingFieldValue = ratingField.value;
+    var youTubeCodeField = document.getElementById('formSongYoutubeCode');
+    var youTubeCodeValue = youTubeCodeField.value;
+    var playlistField = document.getElementById('formSelectPlaylist');
+    var playlistValue = playlistField.value;
+    var ratingField = document.getElementById('formSongRating');
+    var ratingFieldValue = ratingField.value;
     
     if (youTubeCodeValue == "") {
         youTubeCodeField.style.backgroundColor = "LightCoral ";
@@ -198,15 +194,15 @@ function sendSongForm() {
  * Handle user authorization signup form submit button.
  */
 function sendAuthUserSignupForm() {
-    let name = document.getElementById('formAuthUserSignupName');
-    let nameValue = name.value;
-    let email = document.getElementById('formAuthUserSignupEmail');
-    let emailValue = email.value;
-    let password = document.getElementById('formAuthUserSignupPassword');
-    let passwordValue = password.value;
-    let passwordConfirmation = document.getElementById('formAuthUserSignupPasswordConfirm');
-    let passwordConfirmationValue = passwordConfirmation.value;
-    let status = document.getElementById('formAuthUserSignupStatus');
+    var name = document.getElementById('formAuthUserSignupName');
+    var nameValue = name.value;
+    var email = document.getElementById('formAuthUserSignupEmail');
+    var emailValue = email.value;
+    var password = document.getElementById('formAuthUserSignupPassword');
+    var passwordValue = password.value;
+    var passwordConfirmation = document.getElementById('formAuthUserSignupPasswordConfirm');
+    var passwordConfirmationValue = passwordConfirmation.value;
+    var status = document.getElementById('formAuthUserSignupStatus');
 
     if (nameValue == '' || emailValue == '' || passwordValue == '' || passwordConfirmationValue == '') {
         status.innerText = 'Fill in all fields!'
@@ -217,9 +213,8 @@ function sendAuthUserSignupForm() {
         return;
     }
 
-    // let url = "http://localhost/musicplaylist/public/api/auth/signup";
-    let url = base_url + "/api/auth/signup";
-    let data = {'name': nameValue, 'email': emailValue, 'password': passwordValue, 'password_confirmation': passwordConfirmationValue};
+    var url = base_url + "/api/auth/signup";
+    var data = {'name': nameValue, 'email': emailValue, 'password': passwordValue, 'password_confirmation': passwordConfirmationValue};
 
     fetch(url, {
         credentials: "same-origin",
@@ -236,7 +231,6 @@ function sendAuthUserSignupForm() {
     })
     .then(function(json) {
         status.innerText = JSON.stringify(json);
-        return;
     }); 
 }
 
@@ -244,19 +238,19 @@ function sendAuthUserSignupForm() {
  * Handle user authorization login form submit button.
  */
 function sendAuthUserLoginForm() {
-    let email = document.getElementById('formAuthUserLoginEmail');
-    let emailValue = email.value;
-    let password = document.getElementById('formAuthUserLoginPassword');
-    let passwordValue = password.value;
-    let status = document.getElementById('formAuthUserLoginStatus');
+    var email = document.getElementById('formAuthUserLoginEmail');
+    var emailValue = email.value;
+    var password = document.getElementById('formAuthUserLoginPassword');
+    var passwordValue = password.value;
+    var status = document.getElementById('formAuthUserLoginStatus');
 
     if (emailValue == '' || passwordValue == '') {
         status.innerText = 'Fill in all fields!'
         return;
     }
 
-    let url = base_url + "/api/auth/login";
-    let data = {'email': emailValue, 'password': passwordValue};
+    var url = base_url + "/api/auth/login";
+    var data = {'email': emailValue, 'password': passwordValue};
 
     fetch(url, {
         credentials: "same-origin",
@@ -273,7 +267,6 @@ function sendAuthUserLoginForm() {
     })
     .then(function(json) {
         status.innerText = JSON.stringify(json);
-        return;
     });     
 }
 
@@ -281,16 +274,16 @@ function sendAuthUserLoginForm() {
  * Handle user authorization logout form submit button.
  */
 function sendAuthUserLogoutForm() {
-    let token = document.getElementById('formAuthUserLogoutToken');
-    let tokenValue = token.value;
-    let status = document.getElementById('formAuthUserLogoutStatus');
+    var token = document.getElementById('formAuthUserLogoutToken');
+    var tokenValue = token.value;
+    var status = document.getElementById('formAuthUserLogoutStatus');
     
     if (tokenValue == '') {
         status.innerText = 'Token field is empty!';
         return;
     }
 
-    let url = base_url + "/api/auth/logout";
+    var url = base_url + "/api/auth/logout";
 
     fetch(url, {
         credentials: "same-origin",
@@ -307,7 +300,6 @@ function sendAuthUserLogoutForm() {
     })
     .then(function(json) {
         status.innerText = JSON.stringify(json);
-        return;
     });           
 }
 
@@ -329,7 +321,7 @@ var timerInterval; // A periodic timer for refreshing the song tile time.
  * Get playlists with songs.
  */ 
 function loadPlaylistsWithSongs() {
-    var url = base_url + "/playlists/playlistswithsongs";    
+    var url = base_url + "/playlists/playlistswithsongs";
 
     fetch(url, {
         credentials: "same-origin",
@@ -345,7 +337,6 @@ function loadPlaylistsWithSongs() {
     .then(function(json) {
         playlists = json;
         showPlaylists();
-        return;
     }); 
 }
 
@@ -359,7 +350,7 @@ function showPlaylists() {
         var playlist = playlists[playlist_nr];
 
         var x =
-        '<div id="playlist' + playlist_nr.toString() + '" class="card mb-1 text-white bg-dark" style="border:1px purple solid;" onclick="showSongs(' + playlist_nr.toString() + ')">' +
+        '<div id="playlist' + playlist_nr.toString() + '" class="card mb-1 text-white bg-dark" onclick="showSongs(' + playlist_nr.toString() + ')">' +
             '<div class="row no-gutters">' +
              
               '<div class="col-md-2" style="border: 1px solid green">' +
@@ -381,6 +372,8 @@ function showPlaylists() {
 
 /**
  * Show songs.
+ * 
+ * @param {number} playlistId The id of the selected playlist in playlists.
  */
 function showSongs(playlistId) {
     var songContainer = document.getElementById("song_container");
@@ -432,6 +425,9 @@ function showSongs(playlistId) {
 
 /**
  * Show new tab with the lyrics of a song with the given artist and title.
+ * 
+ * @param {string} artist The artist of the song.
+ * @param {string} title The title of the song.
  */
 function showSongLyricsByArtistTitle(artist, title) {
     var url = base_url + "/getLyricsByArtistTitle/" + artist + "/" + title;    
@@ -458,7 +454,6 @@ function showSongLyricsByArtistTitle(artist, title) {
         var w = window.open("", "_blank");
         w.document.title = 'Song lyrics'
         w.document.body.appendChild(content);
-        return;
     }); 
 }
 
@@ -490,6 +485,8 @@ function initialize() {
 
 /**
  * Handles the video loading, playing and pausing.
+ * 
+ * @param {number} songId The id of the selected song in songs.
  */
 function loadVideo(songId) {
     if (previousSongId != songId || previousSongId == null) {
@@ -525,7 +522,6 @@ function loadVideo(songId) {
         isVideoPlaying = false;
     }
 }
-
 
 /**
  * Play the YouTube video.
@@ -570,9 +566,20 @@ function fastForward() {
 
 /**
  * Make timer that shows the elapsed time of the selected song.
+ * We also check if the selected song is no longer visible on 
+ * the screen and if necessary stop the time updates and video 
+ * playback.
+ * 
+ *  @param {number} songId The id of the selected song in songs.
  */
 function updateTimerDisplay(songId){
     // Update current time text display.
+
+    if (!document.getElementById('songTime' + songId.toString())) {
+        window.clearInterval(timerInterval);
+        YouTubePlayer.stopVideo();
+        return;
+    }
     document.getElementById('songTime' + songId.toString()).innerHTML = '<p>' + formatTime(YouTubePlayer.getCurrentTime()) + ' / ' + formatTime(YouTubePlayer.getDuration()) + '</p>'; // Format: 00:00 / 00:00
 }
 
@@ -580,7 +587,7 @@ function updateTimerDisplay(songId){
  * Convert the time in seconds to a string.
  * 
  * @param {number} time The time in seconds.
- * @returns {string} Time in 'minutes : seconds".
+ * @returns {string} Time in format 'minutes:seconds' with zero padding for 2 digits.
  */
 function formatTime(time) {
     time = Math.round(time);

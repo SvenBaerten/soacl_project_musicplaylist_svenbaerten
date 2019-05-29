@@ -4,6 +4,6 @@
   </div>
 </footer> -->
 
-<!-- <footer>
-    TEMP
-</footer> -->
+<footer class="navbar fixed-bottom bg-dark">
+    <div class="row">ok</div>
+</footer>

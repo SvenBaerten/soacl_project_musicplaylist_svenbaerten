@@ -20,7 +20,7 @@ header {
 #song_container {
     padding:20px;
     height: 100%;
-    overflow:scroll;
+    overflow: hidden;
 }
 
 #playlist_container {
@@ -28,6 +28,7 @@ header {
 }
 
 .songTile {
+    margin: 5px;
     min-width: 20%;
 }
 
@@ -40,8 +41,7 @@ header {
 }
 
 #video-placeholder {
-    /* visibility: hidden; */
-    /* float: left; */
+    visibility: hidden;
 }
 
 #playlistForm {
@@ -61,3 +61,10 @@ header {
 .userForms {
     margin-top:50px;
 }
+
+/* footer {
+    position: fixed;
+    height: 8vh;
+    bottom: 0;
+    width: 100%;
+} */
