@@ -5,7 +5,7 @@ header {
 #container {
     border: 3px solid red;
     width: 90vw;
-    height: 70vh;
+    /* height: 70vh; */
     /* background-color: red; */
 }     
 
@@ -13,12 +13,22 @@ header {
     font-size: 0.9rem;
 }
 
+#music_container {
+    min-height: 70vh;
+    max-height: 70vh;
+}
 #song_container {
     padding:20px;
+    height: 100%;
+    overflow:scroll;
 }
 
-.card_custom {
-    /* max-width: 30%; */
+#playlist_container {
+
+}
+
+.songTile {
+    min-width: 20%;
 }
 
 .spotify {
@@ -30,7 +40,8 @@ header {
 }
 
 #video-placeholder {
-    visibility: hidden;
+    /* visibility: hidden; */
+    /* float: left; */
 }
 
 #playlistForm {

@@ -1,6 +1,26 @@
+//
+// General code definitions.
+//
+
+// Define base url for fetch api calls
+var flag_azure = false;
+var base_url = '';
+if (flag_azure) base_url = "https://laravel-svenbaerten.azurewebsites.net";
+else base_url = "http://127.0.0.1:8000";
+// base_url = "http://localhost/musicplaylist/public"
+//
+// Code for handling website navigation and loading html views.
+//
+
 /**
- * Script for header navigation.
+ * Get the csrf-token (see master.blade for meta tag).
  */
+function getCSRFToken() {
+    return document.getElementsByName('csrf-token')[0].getAttribute('content');
+}
+
+// Main container in which we load HTML when using hyperlink buttons.
+var mainContainer = document.getElementById('container');
 
 // Header hyperlink buttons 
 var navPlayMusic = document.getElementById('navPlayMusic');
@@ -9,20 +29,17 @@ var navModifySong = document.getElementById('navModifySong');
 var navUser = document.getElementById('navUser');
 var navDocumentation = document.getElementById('navDocumentation');
 
+// Detect click
 navPlayMusic.addEventListener("click", loadView_PlayMusic, false);
 navModifyPlaylist.addEventListener("click", loadView_PlaylistForm, false);
 navModifySong.addEventListener("click", loadView_SongForm, false);
 navUser.addEventListener("click", loadView_User, false);
 
-// Get the csrf-token (see master.blade for meta tag).
-function getCSRFToken() {
-    return document.getElementsByName('csrf-token')[0].getAttribute('content');
-}
-
-// Get view from Laravel
+/**
+ * Get play music view from Laravel.
+ */
 function loadView_PlayMusic() {
-    // var url = "http://localhost/musicplaylist/public/playlists";    // TODO: Vervangen door URL van Azure!            
-    var url = "http://127.0.0.1:8000/playlists/";                
+    var url = base_url + "/playlists/";                
 
     fetch(url, {
         credentials: "same-origin",
@@ -36,15 +53,17 @@ function loadView_PlayMusic() {
         return response.text();
     })
     .then(function(text) {        
-        document.getElementById('container').innerHTML = text;
+        mainContainer.innerHTML = text;
         showPlaylistsWithSongs();
-        return console.log(JSON.stringify(text));
+        return;
     });           
 }
 
+/**
+ * Get playlist form view from Laravel.
+ */
 function loadView_PlaylistForm() {
-    // var url = "http://localhost/musicplaylist/public/playlists/create";
-    var url = "http://127.0.0.1:8000/playlists/create";                
+    var url = base_url + "/playlists/create";                
 
     let view = 
         fetch(url, {
@@ -59,14 +78,16 @@ function loadView_PlaylistForm() {
             return response.text();
         })
         .then(function(text) {
-            document.getElementById('container').innerHTML = text;
-            return console.log(text);
+            mainContainer.innerHTML = text;
+            return;
         });          
 }
 
+/**
+ * Get song form view from Laravel.
+ */
 function loadView_SongForm() {
-    // var url = "http://localhost/musicplaylist/public/songs/create";  
-    var url = "http://127.0.0.1:8000/songs/create";   
+    var url = base_url + "/songs/create";   
 
     let view = 
         fetch(url, {
@@ -81,14 +102,16 @@ function loadView_SongForm() {
             return response.text();
         })
         .then(function(text) {
-            document.getElementById('container').innerHTML = text;
-            return console.log(text);
+            mainContainer.innerHTML = text;
+            return;
         });          
 }
 
+/**
+ * Get user form view from laravel. 
+ */
 function loadView_User() {
-    // var url = "http://localhost/musicplaylist/public/user";  
-    var url = "http://127.0.0.1:8000/user";   
+    var url = base_url + "/user";   
 
     let view = 
         fetch(url, {
@@ -108,7 +131,9 @@ function loadView_User() {
         });       
 }
 
-// Handling form submit buttons
+/**
+ * Handle playlist form submit button.
+ */
 function sendPlaylistForm() {
     let nameField = document.getElementById('formPlaylistName');
     let nameFieldValue = nameField.value;
@@ -123,8 +148,7 @@ function sendPlaylistForm() {
         nameField.style.backgroundColor = "LightCoral ";
     } else {
         nameField.style.backgroundColor = "lightgreen";
-        // var url = "http://localhost/musicplaylist/public/playlists";  
-        var url = "http://127.0.0.1:8000/playlists";               
+        var url = base_url + "/playlists";               
         var data = {'name': nameFieldValue, 'rating': ratingFieldValue, 'image': imageFieldValue};
 
         fetch(url, {
@@ -139,6 +163,9 @@ function sendPlaylistForm() {
     }            
 }
 
+/**
+ * Handle song form submit button.
+ */
 function sendSongForm() { 
     let youTubeCodeField = document.getElementById('formSongYoutubeCode');
     let youTubeCodeValue = youTubeCodeField.value;
@@ -151,8 +178,7 @@ function sendSongForm() {
         youTubeCodeField.style.backgroundColor = "LightCoral ";
     } else {
         youTubeCodeField.style.backgroundColor = "lightgreen";
-        // var url = "http://localhost/musicplaylist/public/songs";  
-        var url = "http://127.0.0.1:8000/songs";              
+        var url = base_url + "/songs";              
         var data = {'youtube_code': youTubeCodeValue, 'playlist_name': playlistValue, 'rating': ratingFieldValue};
         console.log('send song');
 
@@ -168,7 +194,10 @@ function sendSongForm() {
     }            
 }
 
-function sendFormAuthUserSignup() {
+/**
+ * Handle user authorization signup form submit button.
+ */
+function sendAuthUserSignupForm() {
     let name = document.getElementById('formAuthUserSignupName');
     let nameValue = name.value;
     let email = document.getElementById('formAuthUserSignupEmail');
@@ -189,7 +218,7 @@ function sendFormAuthUserSignup() {
     }
 
     // let url = "http://localhost/musicplaylist/public/api/auth/signup";
-    let url = "http://127.0.0.1:8000/api/auth/signup";
+    let url = base_url + "/api/auth/signup";
     let data = {'name': nameValue, 'email': emailValue, 'password': passwordValue, 'password_confirmation': passwordConfirmationValue};
 
     fetch(url, {
@@ -211,7 +240,10 @@ function sendFormAuthUserSignup() {
     }); 
 }
 
-function sendFormAuthUserLogin() {
+/**
+ * Handle user authorization login form submit button.
+ */
+function sendAuthUserLoginForm() {
     let email = document.getElementById('formAuthUserLoginEmail');
     let emailValue = email.value;
     let password = document.getElementById('formAuthUserLoginPassword');
@@ -223,8 +255,7 @@ function sendFormAuthUserLogin() {
         return;
     }
 
-    // let url = "http://localhost/musicplaylist/public/api/auth/login";                
-    let url = "http://127.0.0.1:8000/api/auth/login";
+    let url = base_url + "/api/auth/login";
     let data = {'email': emailValue, 'password': passwordValue};
 
     fetch(url, {
@@ -246,7 +277,10 @@ function sendFormAuthUserLogin() {
     });     
 }
 
-function sendFormAuthUserLogout() {
+/**
+ * Handle user authorization logout form submit button.
+ */
+function sendAuthUserLogoutForm() {
     let token = document.getElementById('formAuthUserLogoutToken');
     let tokenValue = token.value;
     let status = document.getElementById('formAuthUserLogoutStatus');
@@ -256,8 +290,7 @@ function sendFormAuthUserLogout() {
         return;
     }
 
-    // let url = "http://localhost/musicplaylist/public/api/auth/logout";  
-    let url = "http://127.0.0.1:8000/api/auth/logout";
+    let url = base_url + "/api/auth/logout";
 
     fetch(url, {
         credentials: "same-origin",
@@ -279,24 +312,25 @@ function sendFormAuthUserLogout() {
 }
 
 
-/**
- * Generating the view for playing songs from playlists.
- */
+//
+// Code to visualize playlists and songs. 
+// Code to control the embedded YouTube player.
+//
 
-var playlists;
-var songs; // Songs in selected playlist
-
-var YouTubePlayer;
-var currentYouTubeCode;
+var playlists;  // All playlists
+var songs;      // Songs in selected playlist
+var YouTubePlayer;  // YouTube video control based on https://tutorialzine.com/2015/08/how-to-control-youtubes-video-player-with-javascript
+var currentYouTubeCode; // The video that is loaded.
 var isVideoPlaying = false;
+var previousSongId; // We need to remember our last selected song for resetting purposes.
+var timerInterval; // A periodic timer for refreshing the song tile time.
 
- // Sow playlists with songs
-function showPlaylistsWithSongs() {
-    // alert('load');
-    // var url = "http://localhost/musicplaylist/public/playlists/playlistswithsongs";    
-    var url = "http://127.0.0.1:8000/playlists/playlistswithsongs";    
+/**
+ * Get playlists with songs.
+ */ 
+function loadPlaylistsWithSongs() {
+    var url = base_url + "/playlists/playlistswithsongs";    
 
-    var x =
     fetch(url, {
         credentials: "same-origin",
         method: 'GET',
@@ -310,12 +344,15 @@ function showPlaylistsWithSongs() {
     })
     .then(function(json) {
         playlists = json;
-        loadPlaylists();
+        showPlaylists();
         return;
     }); 
 }
 
-function loadPlaylists() {
+/**
+ * Show playlists.
+ */
+function showPlaylists() {
     var playlistContainer = document.getElementById("playlist_container");
     playlistContainer.innerHTML = '';
     for (var playlist_nr = 0; playlist_nr < playlists.length; playlist_nr++) {
@@ -342,8 +379,10 @@ function loadPlaylists() {
 	}
 }
 
+/**
+ * Show songs.
+ */
 function showSongs(playlistId) {
-    // YouTube video control based on https://tutorialzine.com/2015/08/how-to-control-youtubes-video-player-with-javascript
     var songContainer = document.getElementById("song_container");
 
     songs = playlists[playlistId]['songs'];
@@ -354,7 +393,7 @@ function showSongs(playlistId) {
     for (var song_nr = 0; song_nr < songs.length; song_nr++) {
         var song = songs[song_nr];
         var tile = 
-            '<div class="card text-center card_custom">' +
+            '<div id="songTile'+ song_nr.toString() + '" class="card text-center songTile">' +
                 '<img class="card-img-top" src="' + song['spotify_album_cover'] + '"/>' +
 
                 '<div class="card-body">' +
@@ -374,12 +413,12 @@ function showSongs(playlistId) {
                     '</p>' +
 
                     '<span>' + 
-                        '<button type="button" class="btn btn-default btn-sm" onclick="loadVideo(' + song_nr.toString() + ')"><i class="fas fa-fast-backward"></i></button>' +
-                        '<button type="button" class="btn btn-default btn-sm" onclick="loadVideo(' + song_nr.toString() + ')"><i class="fa fa-play"></i></button>' +
-                        '<button type="button" class="btn btn-default btn-sm" onclick="loadVideo(' + song_nr.toString() + ')"><i class="fas fa-fast-forward"></i></button>' +
+                        '<button type="button" class="btn btn-default btn-sm" onclick="fastBackward()"><i class="fas fa-fast-backward"></i></button>' +
+                        '<button id="playbackButton'+ song_nr.toString() + '" type="button" class="btn btn-default btn-sm" onclick="loadVideo(' + song_nr.toString() + ')"><i class="fa fa-play"></i></button>' +
+                        '<button type="button" class="btn btn-default btn-sm" onclick="fastForward()"><i class="fas fa-fast-forward"></i></button>' +
                     '</span>' +
 
-                    '<p>00 : 00</p>' +
+                    '<p id="songTime'+ song_nr.toString() + '">00:00 / 00:00</p>' +
 
                 '</div>' +
             '</div>';
@@ -391,10 +430,12 @@ function showSongs(playlistId) {
     songContainer.innerHTML = song_tiles;
 }
 
+/**
+ * Show new tab with the lyrics of a song with the given artist and title.
+ */
 function showSongLyricsByArtistTitle(artist, title) {
-    var url = "http://localhost/musicplaylist/public/getLyricsByArtistTitle/" + artist + "/" + title;    
-    console.log(artist);
-    console.log(title);
+    var url = base_url + "/getLyricsByArtistTitle/" + artist + "/" + title;    
+
     fetch(url, {
         credentials: "same-origin",
         method: 'GET',
@@ -407,7 +448,7 @@ function showSongLyricsByArtistTitle(artist, title) {
         return response.text();
     })
     .then(function(text) {
-        console.log(text);
+        // console.log(text);
         // Based on code from Ray Joe https://stackoverflow.com/questions/34735467/open-html-text-in-new-tab-using-window-open
         var content = document.createElement('div');
         var song_text;
@@ -421,14 +462,18 @@ function showSongLyricsByArtistTitle(artist, title) {
     }); 
 }
 
+/**
+ * Starts when the YouTube Video API is loaded.
+ */
 function onYouTubeIframeAPIReady() {
     YouTubePlayer = new YT.Player('video-placeholder', {
         width: 400,
         height: 400,
-        videoId: 'Xa0Q0J5tOP0',
+        videoId: 'VPRjCeoBqrI',
         playerVars: {
-            color: 'white',
-            playlist: 'taJ60kskkns,FG0fTKAqZ5g'
+            'color': 'white',
+            'playlist': 'taJ60kskkns,FG0fTKAqZ5g',
+            // 'origin': "http://www.youtube.com"           
         },
         events: {
             onReady: initialize
@@ -436,33 +481,114 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
+/**
+ * Method called by onYouTubeIframeAPIReady() on start.
+ */
 function initialize() {
-    // alert('done');
+    //
 }
 
+/**
+ * Handles the video loading, playing and pausing.
+ */
 function loadVideo(songId) {
-    YouTubeCode = songs[songId]['youtube_code'];
-    if (songId != currentYTId) {
-        YouTubePlayer.loadVideoById(YouTubeCode);
-        currentYouTubeCode = YouTubeCode;
+    if (previousSongId != songId || previousSongId == null) {
+        var YouTubeCode = songs[songId]['youtube_code'];
+
+        YouTubePlayer.loadVideoById(YouTubeCode); // Load the new YouTube code.
+        YouTubePlayer.setPlaybackQuality("medium"); 
+        currentYouTubeCode = YouTubeCode;  
+        isVideoPlaying = false; 
+        
+        window.clearInterval(timerInterval);
+        timerInterval = setInterval(function () {
+            updateTimerDisplay(songId);
+        }, 1000);
+
+        if (previousSongId != null) {
+            document.getElementById('songTime' + previousSongId.toString()).innerHTML = '<p>00:00 / 00:00</p>';             // Reset previous selected song.
+            document.getElementById('songTile' + previousSongId.toString()).style = "background-color:initial ";            // Reset previous selected song.
+            document.getElementById('playbackButton'+ previousSongId.toString()).innerHTML = '<i class="fa fa-play"></i>';  // Set new selected song.
+        }
+        document.getElementById('songTile' + songId.toString()).style = "background-color:LightGrey";
+        previousSongId = songId;
     }
-    if (isVideoPlaying == false)  {
+
+    if (isVideoPlaying == false) {
         playVideo();
+        document.getElementById('playbackButton'+ songId.toString()).innerHTML = '<i class="fa fa-pause"></i>';
         isVideoPlaying = true;
     }
     else {
         pauseVideo();
+        document.getElementById('playbackButton'+ songId.toString()).innerHTML = '<i class="fa fa-play"></i>';
         isVideoPlaying = false;
     }
 }
 
-function playVideo(){
+
+/**
+ * Play the YouTube video.
+ */
+function playVideo() {
     YouTubePlayer.playVideo();
 }
 
-function pauseVideo(){
+/**
+ * Pause the YouTube video.
+ */
+function pauseVideo() {
     YouTubePlayer.pauseVideo();
 }
 
+/**
+ * Fast forward in the video by 10 seconds.
+ */
+function fastBackward() {
+    var currentTime = YouTubePlayer.getCurrentTime(); // Time in seconds.
+    if (currentTime - 10 >= 0) {
+        YouTubePlayer.seekTo(currentTime - 10, true);
+    }
+    else {
+        YouTubePlayer.seekTo(0);
+    }
+}
 
-showPlaylistsWithSongs();
+/**
+ * Fast forward in the video by 10 seconds.
+ */
+function fastForward() {
+    var currentTime = YouTubePlayer.getCurrentTime(); // Time in seconds.
+    var totalTime = YouTubePlayer.getDuration();
+    if (currentTime + 10 <= totalTime) {
+        YouTubePlayer.seekTo(currentTime + 10, true);
+    } 
+    else {
+        YouTubePlayer.seekTo(totalTime);
+    }
+}
+
+/**
+ * Make timer that shows the elapsed time of the selected song.
+ */
+function updateTimerDisplay(songId){
+    // Update current time text display.
+    document.getElementById('songTime' + songId.toString()).innerHTML = '<p>' + formatTime(YouTubePlayer.getCurrentTime()) + ' / ' + formatTime(YouTubePlayer.getDuration()) + '</p>'; // Format: 00:00 / 00:00
+}
+
+/**
+ * Convert the time in seconds to a string.
+ * 
+ * @param {number} time The time in seconds.
+ * @returns {string} Time in 'minutes : seconds".
+ */
+function formatTime(time) {
+    time = Math.round(time);
+    var minutes = Math.floor(time / 60),
+    seconds = time - minutes * 60;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    return minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+}
+
+// Call this by default;
+loadPlaylistsWithSongs();

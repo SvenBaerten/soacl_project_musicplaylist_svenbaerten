@@ -28,7 +28,7 @@
         </div>   
 
     </div>
-    <button type="button" class="btn btn-primary" onclick="sendFormAuthUserSignup()">Submit</button>
+    <button type="button" class="btn btn-primary" onclick="sendAuthUserSignupForm()">Submit</button>
 </form>
 
 <form id="formAuthUserLogin" class="userForms">
@@ -50,7 +50,7 @@
         </div> 
 
     </div>
-    <button type="button" class="btn btn-primary" onclick="sendFormAuthUserLogin()">Submit</button>
+    <button type="button" class="btn btn-primary" onclick="sendAuthUserLoginForm()">Submit</button>
 </form>
 
 <form id="formAuthUserLogout" class="userForms">
@@ -65,5 +65,5 @@
             <p id="formAuthUserLogoutStatus">Unknown</p>
         </div> 
     </div>
-    <button type="button" class="btn btn-primary" onclick="sendFormAuthUserLogout()">Submit</button>
+    <button type="button" class="btn btn-primary" onclick="sendAuthUserLogoutForm()">Submit</button>
 </form>
