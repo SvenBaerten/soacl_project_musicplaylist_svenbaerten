@@ -42,7 +42,7 @@ navUser.addEventListener("click", loadView_User, false);
  * Get play music view from Laravel.
  */
 function loadView_PlayMusic() {
-    var url = base_url + "/playlists/";                
+    var url = base_url + "/playlists";                
 
     fetch(url, {
         credentials: "same-origin",
