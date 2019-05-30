@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // 'cors' => \Barryvdh\Cors\HandleCors::class // https://www.codeinhouse.com/is-laravel-cors-not-working-how-to-fix-access-control-allow-origin-problem-solution/
+        'cors' => \Spatie\Cors\Cors::class, // https://freek.dev/handling-cors-in-a-laravel-application,
     ];
 
     /**

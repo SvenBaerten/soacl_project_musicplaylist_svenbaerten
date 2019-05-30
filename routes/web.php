@@ -16,10 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', 'MainController@index');
+Route::get('/', 'MainController@index')->with('cors');
 Route::get('/playlists/playlistswithsongs', 'PlaylistController@getPlaylistsWithSongs');
-Route::resource('/playlists', 'PlaylistController');
-Route::resource('/songs', 'SongController');
+Route::resource('/playlists', 'PlaylistController')->with('cors');
+Route::resource('/songs', 'SongController')->with('cors');
 Route::get('/songLyricsById/{songId}', 'SongLyricsController@getLyricsBySongId');
 Route::get('/getLyricsByArtistTitle/{artist}/{title}', 'SongLyricsController@getLyricsByArtistTitle');
 
