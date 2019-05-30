@@ -69,7 +69,6 @@ function loadView_PlaylistForm() {
 
     fetch(url, {
         // credentials: "same-origin",
-        mode: 'cors',
         method: 'GET',
         headers:{
             'Content-Type': 'application/json',
