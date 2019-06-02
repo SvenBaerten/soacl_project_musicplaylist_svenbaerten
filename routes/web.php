@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/', 'MainController@index');
+Route::get('/documentation', 'MainController@getDocumentation');
 Route::get('/playlists/playlistswithsongs', 'PlaylistController@getPlaylistsWithSongs');
 Route::resource('/playlists', 'PlaylistController');
 Route::resource('/songs', 'SongController');

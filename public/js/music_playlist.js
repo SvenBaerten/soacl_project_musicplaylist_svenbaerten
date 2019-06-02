@@ -3,7 +3,7 @@
 //
 
 // Define base url for fetch api calls
-var flag_azure = true;
+var flag_azure = false;
 var base_url = '';
 if (flag_azure) base_url = "http://laravel-svenbaerten.azurewebsites.net";
 else base_url = "http://127.0.0.1:8000";
@@ -37,6 +37,7 @@ navPlayMusic.addEventListener("click", loadView_PlayMusic, false);
 navModifyPlaylist.addEventListener("click", loadView_PlaylistForm, false);
 navModifySong.addEventListener("click", loadView_SongForm, false);
 navUser.addEventListener("click", loadView_User, false);
+navDocumentation.addEventListener("click", loadView_Documentation, false);
 
 /**
  * Get play music view from Laravel.
@@ -125,6 +126,28 @@ function loadView_User() {
     .then(function(text) {
         document.getElementById('container').innerHTML = text;
     });       
+}
+
+/**
+ * Get documentation view from Laravel.
+ */
+function loadView_Documentation() {
+    var url = base_url + "/documentation";                
+
+    fetch(url, {
+        credentials: "same-origin",
+        method: 'GET',
+        headers:{
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCSRFToken(),
+        }
+    })
+    .then(function(response) {
+        return response.text();
+    })
+    .then(function(text) {
+        mainContainer.innerHTML = text;
+    });          
 }
 
 /**
@@ -313,7 +336,7 @@ var songs;      // Songs in selected playlist
 var YouTubePlayer;  // YouTube video control based on https://tutorialzine.com/2015/08/how-to-control-youtubes-video-player-with-javascript
 var currentYouTubeCode; // The video that is loaded.
 var isVideoPlaying = false;
-var previousSongId; // We need to remember our last selected song for resetting purposes.
+var previousSongIndex; // We need to remember our last selected song for resetting purposes.
 var timerInterval; // A periodic timer for refreshing the song tile time.
 
 /**
@@ -357,13 +380,13 @@ function showPlaylists() {
             '<div class="row no-gutters">' +
              
               '<div class="col-md-2">' +  // style="border: 1px solid green"
-                '<img src="' + playlist['image'] + '" class="card-img">' + // style="object-fit: cover; width: 100%;"
+                '<img src="' + playlist['image'] + '" class="card-img" style="object-fit: cover; width: 100%; height:100%">' + 
               '</div>' +
 
               '<div class="col-md-10">' +
                 '<div class="card-body d-flex justify-content-between">' +
                   '<h6 class="card-title">' + playlist['name'] + '</h6>' +
-                  '<button type="button" class="btn btn-danger btn-sm" onclick="deletePlaylist(' +  playlist['id'].toString() + ')"><i class="fa fa-trash"></i></button>' +
+                  '<button type="button" class="btn btn-danger btn-sm" onclick="deletePlaylist(' +  playlist['id'].toString() + ')"><i class="fa fa-trash fa-sm"></i></button>' +
                 '</div>' +
               '</div>' +
 
@@ -371,18 +394,20 @@ function showPlaylists() {
         '</div>';
 
         playlistContainer.innerHTML += x;       
-	}
+    }
 }
 
 /**
  * Show songs.
  * 
- * @param {number} playlistId The id of the selected playlist in playlists.
+ * @param {number} playlistIndex The index of the selected playlist in the playlists json object.
  */
-function showSongs(playlistId) {
+function showSongs(playlistIndex) {
+    stopVideoUpdate(); // Stop current playing video
+
     var songContainer = document.getElementById("song_container");
 
-    songs = playlists[playlistId]['songs'];
+    songs = playlists[playlistIndex]['songs'];
 
     songContainer.innerHTML = '';
     var song_tiles = '<div class="card-deck">';
@@ -396,11 +421,7 @@ function showSongs(playlistId) {
 
                 '<div class="card-body">' +
 
-                    '<h6 class="card-title">' + song['title'] + 
-                        // ' <a class="spotify" href="https://open.spotify.com/track/' + song['spotify_code'] + '" target="_blank"><i class="fab fa-spotify"></i></a>' + 
-                        // ' <a class="youtube" href="https://www.youtube.com/watch?v=' + song['youtube_code'] + '" target="_blank"><i class="fab fa-youtube"></i></a>' +  
-                        // ' <a class="lyrics" href="javascript:void(0)" onclick="showSongLyricsByArtistTitle(\'' + song['artist'].replace("'", "") + '\', \'' + song['title'].replace("'", "") + '\');" ><i class="fa fa-align-justify"></i></a>' +  
-                    '</h6>' +
+                    '<h6 class="card-title"><strong>' + song['title'] + '</strong></h6>' +
                     '<p class="card-text card_p">' +
                         '<p>' + 
                         ' <a class="spotify" href="https://open.spotify.com/track/' + song['spotify_code'] + '" target="_blank"><i class="fab fa-spotify"></i></a>' + 
@@ -417,9 +438,9 @@ function showSongs(playlistId) {
                     '</p>' +
 
                     '<span>' + 
-                        '<button type="button" class="btn btn-default btn-sm" onclick="fastBackward()"><i class="fas fa-fast-backward"></i></button>' +
+                        '<button type="button" class="btn btn-default btn-sm" onclick="fastBackward(' + song_nr.toString() + ')"><i class="fas fa-fast-backward"></i></button>' +
                         '<button id="playbackButton'+ song_nr.toString() + '" type="button" class="btn btn-default btn-sm" onclick="loadVideo(' + song_nr.toString() + ')"><i class="fa fa-play"></i></button>' +
-                        '<button type="button" class="btn btn-default btn-sm" onclick="fastForward()"><i class="fas fa-fast-forward"></i></button>' +
+                        '<button type="button" class="btn btn-default btn-sm" onclick="fastForward(' + song_nr.toString() + ')"><i class="fas fa-fast-forward"></i></button>' +
                     '</span>' +
 
                     '<p id="songTime'+ song_nr.toString() + '">00:00 / 00:00</p>' +
@@ -555,41 +576,51 @@ function initialize() {
 /**
  * Handles the video loading, playing and pausing.
  * 
- * @param {number} songId The id of the selected song in songs.
+ * @param {number} songIndex The index of the selected song in the songs json object.
  */
-function loadVideo(songId) {
-    if (previousSongId != songId || previousSongId == null) {
-        var YouTubeCode = songs[songId]['youtube_code'];
+function loadVideo(songIndex) {
+    if (previousSongIndex != songIndex || previousSongIndex == null) {
+        var YouTubeCode = songs[songIndex]['youtube_code'];
 
         YouTubePlayer.loadVideoById(YouTubeCode); // Load the new YouTube code.
-        YouTubePlayer.setPlaybackQuality("medium"); 
+        YouTubePlayer.setPlaybackQuality("small"); 
         currentYouTubeCode = YouTubeCode;  
         isVideoPlaying = false; 
         
         window.clearInterval(timerInterval);
         timerInterval = setInterval(function () {
-            updateTimerDisplay(songId);
+            updateTimerDisplay(songIndex);
         }, 1000);
 
-        if (previousSongId != null) {
-            document.getElementById('songTime' + previousSongId.toString()).innerHTML = '<p>00:00 / 00:00</p>';             // Reset previous selected song.
-            document.getElementById('songTile' + previousSongId.toString()).style = "background-color:initial ";            // Reset previous selected song.
-            document.getElementById('playbackButton'+ previousSongId.toString()).innerHTML = '<i class="fa fa-play"></i>';  // Set new selected song.
+        if (previousSongIndex != null) {
+            document.getElementById('songTime' + previousSongIndex.toString()).innerHTML = '<p>00:00 / 00:00</p>';             // Reset previous selected song.
+            document.getElementById('songTile' + previousSongIndex.toString()).style = "background-color:initial ";            // Reset previous selected song.
+            document.getElementById('playbackButton'+ previousSongIndex.toString()).innerHTML = '<i class="fa fa-play"></i>';  // Set new selected song.
         }
-        document.getElementById('songTile' + songId.toString()).style = "background-color:LightGrey";
-        previousSongId = songId;
+        document.getElementById('songTile' + songIndex.toString()).style = "background-color:LightGrey";
+        previousSongIndex = songIndex;
     }
 
     if (isVideoPlaying == false) {
         playVideo();
-        document.getElementById('playbackButton'+ songId.toString()).innerHTML = '<i class="fa fa-pause"></i>';
+        document.getElementById('playbackButton'+ songIndex.toString()).innerHTML = '<i class="fa fa-pause"></i>';
         isVideoPlaying = true;
     }
     else {
         pauseVideo();
-        document.getElementById('playbackButton'+ songId.toString()).innerHTML = '<i class="fa fa-play"></i>';
+        document.getElementById('playbackButton'+ songIndex.toString()).innerHTML = '<i class="fa fa-play"></i>';
         isVideoPlaying = false;
     }
+}
+
+/**
+ * Stop the current playing video.
+ */
+function stopVideoUpdate() {
+    isVideoPlaying = false; 
+    window.clearInterval(timerInterval);
+    YouTubePlayer.stopVideo();
+    previousSongIndex = null;
 }
 
 /**
@@ -607,29 +638,37 @@ function pauseVideo() {
 }
 
 /**
- * Fast forward in the video by 10 seconds.
+ * Fast backward in the video by 10 seconds.
+ * 
+ * @param {number} songIndex The index of the selected song in the songs json object.
  */
-function fastBackward() {
-    var currentTime = YouTubePlayer.getCurrentTime(); // Time in seconds.
-    if (currentTime - 10 >= 0) {
-        YouTubePlayer.seekTo(currentTime - 10, true);
-    }
-    else {
-        YouTubePlayer.seekTo(0);
+function fastBackward(songIndex) {
+    if (songIndex == previousSongIndex) {
+        var currentTime = YouTubePlayer.getCurrentTime(); // Time in seconds.
+        if (currentTime - 10 >= 0) {
+            YouTubePlayer.seekTo(currentTime - 10, true);
+        }
+        else {
+            YouTubePlayer.seekTo(0);
+        }
     }
 }
 
 /**
  * Fast forward in the video by 10 seconds.
+ * 
+ * @param {number} songIndex The index of the selected song in the songs json object.
  */
-function fastForward() {
-    var currentTime = YouTubePlayer.getCurrentTime(); // Time in seconds.
-    var totalTime = YouTubePlayer.getDuration();
-    if (currentTime + 10 <= totalTime) {
-        YouTubePlayer.seekTo(currentTime + 10, true);
-    } 
-    else {
-        YouTubePlayer.seekTo(totalTime);
+function fastForward(songIndex) {
+    if (songIndex == previousSongIndex) {
+        var currentTime = YouTubePlayer.getCurrentTime(); // Time in seconds.
+        var totalTime = YouTubePlayer.getDuration();
+        if (currentTime + 10 <= totalTime) {
+            YouTubePlayer.seekTo(currentTime + 10, true);
+        } 
+        else {
+            YouTubePlayer.seekTo(totalTime);
+        }
     }
 }
 
@@ -639,17 +678,17 @@ function fastForward() {
  * the screen and if necessary stop the time updates and video 
  * playback.
  * 
- *  @param {number} songId The id of the selected song in songs.
+ *  @param {number} songIndex The id of the selected song in songs.
  */
-function updateTimerDisplay(songId){
+function updateTimerDisplay(songIndex){
     // Update current time text display.
 
-    if (!document.getElementById('songTime' + songId.toString())) {
+    if (!document.getElementById('songTime' + songIndex.toString())) {
         window.clearInterval(timerInterval);
         YouTubePlayer.stopVideo();
         return;
     }
-    document.getElementById('songTime' + songId.toString()).innerHTML = '<p>' + formatTime(YouTubePlayer.getCurrentTime()) + ' / ' + formatTime(YouTubePlayer.getDuration()) + '</p>'; // Format: 00:00 / 00:00
+    document.getElementById('songTime' + songIndex.toString()).innerHTML = '<p>' + formatTime(YouTubePlayer.getCurrentTime()) + ' / ' + formatTime(YouTubePlayer.getDuration()) + '</p>'; // Format: 00:00 / 00:00
 }
 
 /**

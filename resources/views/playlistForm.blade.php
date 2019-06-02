@@ -19,7 +19,7 @@
         <div class="form-group">
             <label>Playlist image</label>
             <input class="form-control" id="formPlaylistImage" aria-describedby="playlistImageHelp" placeholder="">
-            <small id="playlistImageHelp" class="form-text text-muted">Optional URL to an image</small>
+            <small id="playlistImageHelp" class="form-text text-muted">Optional URL to a playlist cover image.</small>
         </div>  
     </div>
     <button type="button" class="btn btn-primary" onclick="sendPlaylistForm()">Submit</button>

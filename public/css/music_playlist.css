@@ -5,8 +5,6 @@ header {
 #container {
     /* border: 3px solid red; */
     width: 90vw;
-    /* height: 70vh; */
-    /* background-color: red; */
 }     
 
 .card_p {
@@ -16,21 +14,19 @@ header {
 #music_container {
     border: solid 3px #343a40;
     border-radius: 10px;
+    padding-bottom: 15px;
 }
 
 #song_container {
-    padding: 0px 20px 20px 20px;
     height: 100%;
-    /* overflow: hidden; */
 }
 
 #playlist_container {
-
 }
 
 .songTile {
-    margin: 5px;
-    min-width: 20%;
+    margin: 5px 0px;
+    min-width: 30%;/*20%;*/
     border: solid 1px #343a40;
 }
 
@@ -72,7 +68,6 @@ header {
 footer {
     margin-top: 30px;
     height: 6vh;
-    /* bottom: 0; */
     width: 100%;
 }
 

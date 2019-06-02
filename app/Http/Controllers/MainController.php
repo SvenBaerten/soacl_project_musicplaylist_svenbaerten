@@ -16,4 +16,13 @@ class MainController extends Controller
     public function index() {
         return view('index');
     }
+
+    /**
+     * Show the documentation view.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDocumentation() {
+        return view('documentation');
+    }
 }
