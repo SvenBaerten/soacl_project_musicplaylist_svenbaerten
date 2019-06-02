@@ -29,22 +29,27 @@ class SongLyricsController extends Controller
         
         $lyric = $response->SearchLyricDirectResult->Lyric;
 
-        return preg_replace("/\r|\n/", "<br>", $lyric); // Van Laurens Le Jeune
+        return preg_replace("/\r|\n/", "<br>", $lyric);
     }
 
-    public function getLyricsBySongId($id) 
-    {
-        $song = Song::find($id);
+    // public function getLyricsBySongId($id) 
+    // {
+    //     $song = Song::find($id);
 
-        $artist = $song->artist;
-        $title = $song->title;
+    //     $artist = $song->artist;
+    //     $title = $song->title;
         
-        return SongLyricsController::getLyrics($artist, $title);
-    }
+    //     return SongLyricsController::getLyrics($artist, $title);
+    // }
 
-    public function getLyricsByArtistTitle($artist, $title) 
+    // public function getLyricsByArtistTitle($artist, $title) 
+    // {        
+    //     return SongLyricsController::getLyrics($artist, $title);
+    // }
+
+    public function getLyricsByArtistTitle(Request $request)  // https://itsolutionstuff.com/post/how-to-get-query-strings-value-in-laravel-5example.html
     {        
-        return SongLyricsController::getLyrics($artist, $title);
+        return SongLyricsController::getLyrics($request->input('artist'), $request->input('title'));
     }
 
 }

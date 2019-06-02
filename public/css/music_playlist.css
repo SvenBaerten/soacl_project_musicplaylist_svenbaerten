@@ -3,7 +3,7 @@ header {
 }
 
 #container {
-    border: 3px solid red;
+    /* border: 3px solid red; */
     width: 90vw;
     /* height: 70vh; */
     /* background-color: red; */
@@ -14,13 +14,16 @@ header {
 }
 
 #music_container {
-    min-height: 70vh;
-    max-height: 70vh;
+    /* min-height: 70vh; */
+    /* max-height: 70vh; */
+    border: solid 3px #343a40;
+    border-radius: 10px;
 }
+
 #song_container {
-    padding:20px;
+    padding: 0px 20px;
     height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 #playlist_container {
@@ -45,21 +48,25 @@ header {
 }
 
 #playlistForm {
-   width:400px;
+    max-width: 400px;
+    border: solid 3px #343a40;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 #songForm {
-    width:400px;
-    border:2px solid green;
-}
-
-#userAuthForm {
-    width:400px;
-    border:2px solid green;
+    max-width: 400px;
+    border: solid 3px #343a40;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .userForms {
-    margin-top:50px;
+    max-width: 400px;
+    margin-bottom: 50px;
+    border: solid 3px #343a40;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 /* footer {

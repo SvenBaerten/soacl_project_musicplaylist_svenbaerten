@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 // Authentication from https://medium.com/modulr/create-api-authentication-with-passport-of-laravel-5-6-1dc2d400a7f
 Route::group([
     'prefix' => 'auth'
@@ -28,4 +29,7 @@ Route::group([
 });
 
 Route::resource('/playlists', 'PlaylistAPIController')->middleware('auth:api');
+// Route::get('/getLyricsByArtistTitle/{artist}/{title}', 'SongLyricsController@getLyricsByArtistTitle');
+// Route::get('/songLyricsById/{songId}', 'SongLyricsController@getLyricsBySongId');
+Route::get('/getLyricsByArtistTitle', 'SongLyricsController@getLyricsByArtistTitle');
 

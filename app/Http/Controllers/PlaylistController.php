@@ -89,7 +89,7 @@ class PlaylistController extends Controller
     {
         $playlist = Playlist::find($id);
         $playlist->songs()->delete();
-        Playlist::destroy($id);
+        $playlist->delete();
         return $playlist;
     }
 

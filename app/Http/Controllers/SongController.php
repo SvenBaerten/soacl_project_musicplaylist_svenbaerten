@@ -137,7 +137,7 @@ class SongController extends Controller
             $flask_base_url = 'http://192.168.99.100:8000/api/track'; // When running docker container do '-p 8000:80'.
         }
         
-        $flask_url = $flask_base_url . '/' . str_replace(' ', '%20', $artist) . '/' . str_replace(' ', '%20', $title); // GET: http://127.0.0.1:5000/api/track/<string:artist>/<string:title>
+        $flask_url = $flask_base_url . '/' . str_replace(' ', '%20', str_replace('/', '%20', $artist)) . '/' . str_replace(' ', '%20', $title); // GET: http://127.0.0.1:5000/api/track/<string:artist>/<string:title>
 
         $curl = curl_init();            // From https://laravelcode.com/post/laravel-55-how-to-make-curl-http-request-example
         curl_setopt_array($curl, array(
@@ -316,7 +316,9 @@ class SongController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $song = Song::find($id);
+        $song->delete();
+        return $song;
     }
 }
 

@@ -176,7 +176,6 @@ function sendSongForm() {
         youTubeCodeField.style.backgroundColor = "lightgreen";
         var url = base_url + "/songs";              
         var data = {'youtube_code': youTubeCodeValue, 'playlist_name': playlistValue, 'rating': ratingFieldValue};
-        console.log('send song');
 
         fetch(url, {
             credentials: "same-origin",
@@ -350,14 +349,15 @@ function showPlaylists() {
     songContainer.innerHTML = '';
 
     for (var playlist_nr = 0; playlist_nr < playlists.length; playlist_nr++) {
+        // playlist_nr is the index in the playlists json variable
         var playlist = playlists[playlist_nr];
 
         var x =
-        '<div id="playlist' + playlist_nr.toString() + '" class="card mb-1 text-white bg-dark" onclick="showSongs(' + playlist['id'].toString() + ')">' +
+        '<div id="playlist' + playlist_nr.toString() + '" class="card mb-1 text-white bg-dark" onclick="showSongs(' + playlist_nr.toString() + ')">' +
             '<div class="row no-gutters">' +
              
-              '<div class="col-md-2" style="border: 1px solid green">' +
-                '<img src="' + playlist['image'] + '" class="card-img" style="object-fit: cover; width: 100%;" >' +
+              '<div class="col-md-2">' +  // style="border: 1px solid green"
+                '<img src="' + playlist['image'] + '" class="card-img">' + // style="object-fit: cover; width: 100%;"
               '</div>' +
 
               '<div class="col-md-10">' +
@@ -388,6 +388,7 @@ function showSongs(playlistId) {
     var song_tiles = '<div class="card-deck">';
 
     for (var song_nr = 0; song_nr < songs.length; song_nr++) {
+        // song_nr is the index in the songs json variable
         var song = songs[song_nr];
         var tile = 
             '<div id="songTile'+ song_nr.toString() + '" class="card text-center songTile">' +
@@ -396,14 +397,20 @@ function showSongs(playlistId) {
                 '<div class="card-body">' +
 
                     '<h6 class="card-title">' + song['title'] + 
+                        // ' <a class="spotify" href="https://open.spotify.com/track/' + song['spotify_code'] + '" target="_blank"><i class="fab fa-spotify"></i></a>' + 
+                        // ' <a class="youtube" href="https://www.youtube.com/watch?v=' + song['youtube_code'] + '" target="_blank"><i class="fab fa-youtube"></i></a>' +  
+                        // ' <a class="lyrics" href="javascript:void(0)" onclick="showSongLyricsByArtistTitle(\'' + song['artist'].replace("'", "") + '\', \'' + song['title'].replace("'", "") + '\');" ><i class="fa fa-align-justify"></i></a>' +  
+                    '</h6>' +
+                    '<p class="card-text card_p">' +
+                        '<p>' + 
                         ' <a class="spotify" href="https://open.spotify.com/track/' + song['spotify_code'] + '" target="_blank"><i class="fab fa-spotify"></i></a>' + 
                         ' <a class="youtube" href="https://www.youtube.com/watch?v=' + song['youtube_code'] + '" target="_blank"><i class="fab fa-youtube"></i></a>' +  
                         ' <a class="lyrics" href="javascript:void(0)" onclick="showSongLyricsByArtistTitle(\'' + song['artist'].replace("'", "") + '\', \'' + song['title'].replace("'", "") + '\');" ><i class="fa fa-align-justify"></i></a>' +  
-                    '</h6>' +
-                    '<p class="card-text card_p">' +
-                        '<strong>Artist</strong>' + ' <a class="spotify" href="https://open.spotify.com/artist/' + song['spotify_artist_code'] + '" target="_blank"><i class="fab fa-spotify"></i></a>' + 
+                        '</p>' +
+
+                        '<strong>Artist</strong>' + // ' <a class="spotify" href="https://open.spotify.com/artist/' + song['spotify_artist_code'] + '" target="_blank"><i class="fab fa-spotify"></i></a>' + 
                         '<br/>' + song['artist'] + '<br/>' +
-                        '<strong>Album</strong>' + ' <a class="spotify" href="https://open.spotify.com/album/' + song['spotify_album_code'] + '" target="_blank"><i class="fab fa-spotify"></i></a>' + 
+                        '<strong>Album</strong>' + // ' <a class="spotify" href="https://open.spotify.com/album/' + song['spotify_album_code'] + '" target="_blank"><i class="fab fa-spotify"></i></a>' + 
                         '<br/>' + song['album'] + '<br/>' +
                         '<strong>Release date</strong>' +
                         '<br/>' + song['day'] + ' ' + song['month_name'] + ' ' + song['year'] + '<br/>' +
@@ -453,7 +460,36 @@ function deletePlaylist(playlistId) {
         return response.json();
     })
     .then(function(json) {
-        showPlaylists();
+        loadPlaylistsWithSongs()();
+    });
+}
+
+/**
+ * Remove a song by its id.
+ * 
+ * @param {number} songId The song id of the song to be removed.
+ */
+function deleteSong(songId) {
+    var result = confirm("Do you want to delete this song?");
+    if (result == false) {
+        return;
+    }
+
+    var url = base_url + "/songs/" + songId.toString();    
+
+    fetch(url, {
+        credentials: "same-origin",
+        method: 'DELETE',
+        headers:{
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCSRFToken()
+        }
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        loadPlaylistsWithSongs();
     });
 }
 
@@ -464,7 +500,7 @@ function deletePlaylist(playlistId) {
  * @param {string} title The title of the song.
  */
 function showSongLyricsByArtistTitle(artist, title) {
-    var url = base_url + "/getLyricsByArtistTitle/" + artist + "/" + title;    
+    var url = base_url + "/api/getLyricsByArtistTitle/?artist=" + artist + "&title=" + title;  
 
     fetch(url, {
         credentials: "same-origin",
@@ -478,7 +514,6 @@ function showSongLyricsByArtistTitle(artist, title) {
         return response.text();
     })
     .then(function(text) {
-        // console.log(text);
         // Based on code from Ray Joe https://stackoverflow.com/questions/34735467/open-html-text-in-new-tab-using-window-open
         var content = document.createElement('div');
         var song_text;

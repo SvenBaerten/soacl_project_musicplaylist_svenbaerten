@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,10 +19,6 @@ Route::get('/', 'MainController@index');
 Route::get('/playlists/playlistswithsongs', 'PlaylistController@getPlaylistsWithSongs');
 Route::resource('/playlists', 'PlaylistController');
 Route::resource('/songs', 'SongController');
-Route::get('/songLyricsById/{songId}', 'SongLyricsController@getLyricsBySongId');
-Route::get('/getLyricsByArtistTitle/{artist}/{title}', 'SongLyricsController@getLyricsByArtistTitle');
-
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/user', 'AuthController@getUserView');
