@@ -1,5 +1,5 @@
 header {
-    padding-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 #container {
@@ -14,14 +14,12 @@ header {
 }
 
 #music_container {
-    /* min-height: 70vh; */
-    /* max-height: 70vh; */
     border: solid 3px #343a40;
     border-radius: 10px;
 }
 
 #song_container {
-    padding: 0px 20px;
+    padding: 0px 20px 20px 20px;
     height: 100%;
     /* overflow: hidden; */
 }
@@ -33,6 +31,7 @@ header {
 .songTile {
     margin: 5px;
     min-width: 20%;
+    border: solid 1px #343a40;
 }
 
 .spotify {
@@ -45,6 +44,7 @@ header {
 
 #video-placeholder {
     visibility: hidden;
+    display: none;
 }
 
 #playlistForm {
@@ -69,9 +69,13 @@ header {
     padding: 20px;
 }
 
-/* footer {
-    position: fixed;
-    height: 8vh;
-    bottom: 0;
+footer {
+    margin-top: 30px;
+    height: 6vh;
+    /* bottom: 0; */
     width: 100%;
-} */
+}
+
+#uhasselt-kuleuven {
+    height: 30px;
+}

@@ -43,7 +43,7 @@ class SongController extends Controller
     public function store(Request $request)
     {
         // Set this flag to True to use the custom made Azure web service implementations.
-        $FLAG_USE_AZURE = false;
+        $FLAG_USE_AZURE = true;
 
         // Set this flag to True to the use the Node.js DateSplitter web service instead of the SOAP version.
         $FLAG_USE_NODEJS_DATESPLITTER = true;
@@ -65,10 +65,6 @@ class SongController extends Controller
         curl_setopt_array($curl, array(
             CURLOPT_URL => $youtube_url,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30000,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
                 // Set here required headers
@@ -143,10 +139,6 @@ class SongController extends Controller
         curl_setopt_array($curl, array(
             CURLOPT_URL => $flask_url,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30000,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
                 // Set here required headers

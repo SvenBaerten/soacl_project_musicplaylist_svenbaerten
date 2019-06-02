@@ -29,7 +29,5 @@ Route::group([
 });
 
 Route::resource('/playlists', 'PlaylistAPIController')->middleware('auth:api');
-// Route::get('/getLyricsByArtistTitle/{artist}/{title}', 'SongLyricsController@getLyricsByArtistTitle');
-// Route::get('/songLyricsById/{songId}', 'SongLyricsController@getLyricsBySongId');
 Route::get('/getLyricsByArtistTitle', 'SongLyricsController@getLyricsByArtistTitle');
 

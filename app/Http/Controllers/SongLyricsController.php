@@ -32,21 +32,6 @@ class SongLyricsController extends Controller
         return preg_replace("/\r|\n/", "<br>", $lyric);
     }
 
-    // public function getLyricsBySongId($id) 
-    // {
-    //     $song = Song::find($id);
-
-    //     $artist = $song->artist;
-    //     $title = $song->title;
-        
-    //     return SongLyricsController::getLyrics($artist, $title);
-    // }
-
-    // public function getLyricsByArtistTitle($artist, $title) 
-    // {        
-    //     return SongLyricsController::getLyrics($artist, $title);
-    // }
-
     public function getLyricsByArtistTitle(Request $request)  // https://itsolutionstuff.com/post/how-to-get-query-strings-value-in-laravel-5example.html
     {        
         return SongLyricsController::getLyrics($request->input('artist'), $request->input('title'));
