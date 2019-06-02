@@ -3,7 +3,7 @@
 //
 
 // Define base url for fetch api calls
-var flag_azure = true;
+var flag_azure = false;
 var base_url = '';
 if (flag_azure) base_url = "http://laravel-svenbaerten.azurewebsites.net";
 else base_url = "http://127.0.0.1:8000";
@@ -346,11 +346,14 @@ function loadPlaylistsWithSongs() {
 function showPlaylists() {
     var playlistContainer = document.getElementById("playlist_container");
     playlistContainer.innerHTML = '';
+    var songContainer = document.getElementById("song_container");
+    songContainer.innerHTML = '';
+
     for (var playlist_nr = 0; playlist_nr < playlists.length; playlist_nr++) {
         var playlist = playlists[playlist_nr];
 
         var x =
-        '<div id="playlist' + playlist_nr.toString() + '" class="card mb-1 text-white bg-dark" onclick="showSongs(' + playlist_nr.toString() + ')">' +
+        '<div id="playlist' + playlist_nr.toString() + '" class="card mb-1 text-white bg-dark" onclick="showSongs(' + playlist['id'].toString() + ')">' +
             '<div class="row no-gutters">' +
              
               '<div class="col-md-2" style="border: 1px solid green">' +
@@ -358,8 +361,9 @@ function showPlaylists() {
               '</div>' +
 
               '<div class="col-md-10">' +
-                '<div class="card-body">' +
+                '<div class="card-body d-flex justify-content-between">' +
                   '<h6 class="card-title">' + playlist['name'] + '</h6>' +
+                  '<button type="button" class="btn btn-danger btn-sm" onclick="deletePlaylist(' +  playlist['id'].toString() + ')"><i class="fa fa-trash"></i></button>' +
                 '</div>' +
               '</div>' +
 
@@ -412,6 +416,7 @@ function showSongs(playlistId) {
                     '</span>' +
 
                     '<p id="songTime'+ song_nr.toString() + '">00:00 / 00:00</p>' +
+                    '<button type="button" class="btn btn-danger btn-sm" onclick="deleteSong(' + song['id'].toString() + ')"><i class="fa fa-trash"></i></button>' +
 
                 '</div>' +
             '</div>';
@@ -421,6 +426,35 @@ function showSongs(playlistId) {
     song_tiles += '</div>';
 
     songContainer.innerHTML = song_tiles;
+}
+
+/**
+ * Remove a playlist by its id.
+ * 
+ * @param {number} playlistId The playlist id of the playlist to be removed.
+ */
+function deletePlaylist(playlistId) {
+    var result = confirm("Do you want to delete this playlist?");
+    if (result == false) {
+        return;
+    }
+
+    var url = base_url + "/playlists/" + playlistId.toString();    
+
+    fetch(url, {
+        credentials: "same-origin",
+        method: 'DELETE',
+        headers:{
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': getCSRFToken()
+        }
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        showPlaylists();
+    });
 }
 
 /**
