@@ -1,5 +1,5 @@
 header {
-    margin-bottom: 30px;
+    margin-bottom: 85px;
 }
 
 #container {
@@ -63,6 +63,14 @@ header {
     border: solid 3px #343a40;
     border-radius: 10px;
     padding: 20px;
+}
+
+.userForms #p {
+    word-wrap: break-word;
+}
+
+.userForms #ul {
+    word-wrap: break-word;
 }
 
 footer {

@@ -16,18 +16,18 @@ use Illuminate\Http\Request;
 // Authentication from https://medium.com/modulr/create-api-authentication-with-passport-of-laravel-5-6-1dc2d400a7f
 Route::group([
     'prefix' => 'auth'
-], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
-  
-    Route::group([
-      'middleware' => 'auth:api'
-    ], function() {
-        Route::get('logout', 'AuthController@logout');
-        Route::get('user', 'AuthController@user');
-    });
-});
+    ], function () {
+        Route::post('login', 'AuthController@login');
+        Route::post('signup', 'AuthController@signup');
+    
+        Route::group([
+        'middleware' => 'auth:api'
+        ], function() {
+            Route::get('logout', 'AuthController@logout');
+            Route::get('user', 'AuthController@user');
+        });
+    }
+);
 
 Route::resource('/playlists', 'PlaylistAPIController')->middleware('auth:api');
 Route::get('/getLyricsByArtistTitle', 'SongLyricsController@getLyricsByArtistTitle');
-
