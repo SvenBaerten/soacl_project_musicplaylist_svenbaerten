@@ -25,6 +25,10 @@
                 <option>5</option>
             </select>
         </div>
+        <div class="form-group">
+            <label>Status:</label>
+            <p id="formSongStatus" class="statusForm">Unknown</p>
+        </div> 
     </div>
     <button type="button" class="btn btn-primary" onclick="sendSongForm()">Submit</button>
 </form>

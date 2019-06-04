@@ -29,6 +29,8 @@ app.get('/api/dateSplitter/:date', (req, res) => {
  * @param {string} date The date we want to split. The format must be YEAR-MONTH-DAY e.g. '2019-1-20' or '2019-1' or '2019'.
  */
 function dateSplitter(date) {
+    if (date == "") return {'year':0, 'month':0, 'monthNameLong':'null', 'monthNameShort':'null', 'day':0};
+
     var dateSplitted = date.split('-');
     var numOfItems = dateSplitted.length;
    
@@ -41,26 +43,15 @@ function dateSplitter(date) {
     var monthNameLong = 'null';
     var monthNameShort = 'null';
 
-    if (numOfItems == 1) {
-        year = dateSplitted[0];
-    }
-    else if (numOfItems == 2) {
-        year = dateSplitted[0];        
+    if (numOfItems >= 1) year = dateSplitted[0];
+    if (numOfItems >= 2) {
         if (dateSplitted[1] >= 1 && dateSplitted[1] <= 12) {
             month = dateSplitted[1];
             monthNameLong = months[parseInt(month)-1];
             monthNameShort = monthsShort[parseInt(month)-1];
         }
     }
-    else {
-        year = dateSplitted[0];
-        if (dateSplitted[1] >= 1 && dateSplitted[1] <= 12) {
-            month = dateSplitted[1];
-            monthNameLong = months[parseInt(month)-1];
-            monthNameShort = monthsShort[parseInt(month)-1];
-        }
-        day = dateSplitted[2];
-    }
+    if (numOfItems == 3) day = dateSplitted[2];
 
     // Same return as already impelemented soap service 'DateSplitterService.asmx -> Date2YearMonthDay':
     // <year>2013</year>

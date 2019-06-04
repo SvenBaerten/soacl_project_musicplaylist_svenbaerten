@@ -38,7 +38,7 @@ namespace SOACL_SOAP_Web_Services
                 <td>Summary:</td><td>Splits a YouTube music video title into the artist name and the track title.</td>
             </tr>
             <tr>
-                <td>Expected title:</td><td>artist - track title; the - is essential.</td>
+                <td>Expected input:</td><td>artist - track title (the - is essential).</td>
             </tr>
         </table>";
         [WebMethod(Description = WebMethodDescription)] // From MikeM and Ahmed Magdy, see https://stackoverflow.com/questions/6390806/asmx-web-service-documentation

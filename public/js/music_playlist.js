@@ -160,23 +160,34 @@ function sendPlaylistForm() {
     var ratingFieldValue = ratingField.value;
     var imageField = document.getElementById('formPlaylistImage');
     var imageFieldValue = imageField.value;
+    var statusField = document.getElementById('formPlaylistStatus');
 
     if (imageFieldValue == "") imageFieldValue = "https://media.tmicdn.com/catalog/product/cache/c687aa7517cf01e65c009f6943c2b1e9/m/u/music-note-temporary-tattoo_2597.jpg";
 
     if (nameFieldValue == "") {
-        nameField.style.backgroundColor = "LightCoral ";
+        statusField.textContent = "Fill in the playlist name!";
+        nameField.style.backgroundColor = "LightCoral";
     } else {
-        nameField.style.backgroundColor = "lightgreen";
         var url = base_url + "/playlists";               
         var data = {'name': nameFieldValue, 'rating': ratingFieldValue, 'image': imageFieldValue};
 
         fetch(url, {
-            credentials: "same-origin",
+            // credentials: "same-origin",
             method: 'POST',
             body: JSON.stringify(data),
             headers:{
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': getCSRFToken()
+            }
+        })
+        .then(function(response) {
+            if (response.status == 201) {
+                statusField.textContent = "Playlist is created!";
+                nameField.style.backgroundColor = "lightgreen";
+            }
+            else {
+                statusField.textContent = "Playlist is not created!";
+                nameField.style.backgroundColor = "LightCoral";
             }
         });
     }            
@@ -192,11 +203,12 @@ function sendSongForm() {
     var playlistValue = playlistField.value;
     var ratingField = document.getElementById('formSongRating');
     var ratingFieldValue = ratingField.value;
+    var statusField = document.getElementById('formSongStatus');
     
     if (youTubeCodeValue == "") {
-        youTubeCodeField.style.backgroundColor = "LightCoral ";
+        statusField.textContent = "Fill in the YouTube code!";
+        nameField.style.backgroundColor = "LightCoral";
     } else {
-        youTubeCodeField.style.backgroundColor = "lightgreen";
         var url = base_url + "/songs";              
         var data = {'youtube_code': youTubeCodeValue, 'playlist_name': playlistValue, 'rating': ratingFieldValue};
 
@@ -207,6 +219,16 @@ function sendSongForm() {
             headers:{
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': getCSRFToken()
+            }
+        })
+        .then(function(response) {
+            if (response.status == 201) {
+                statusField.textContent = "Song is added!";
+                nameField.style.backgroundColor = "lightgreen";
+            }
+            else {
+                statusField.textContent = "Song is not added!";
+                nameField.style.backgroundColor = "LightCoral";
             }
         });
     }            

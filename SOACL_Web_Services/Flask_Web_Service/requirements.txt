@@ -2,3 +2,4 @@ Flask
 Flask-restful
 requests
 flask_cors
+mysql-connector

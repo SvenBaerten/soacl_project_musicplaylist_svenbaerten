@@ -82,10 +82,14 @@ header {
 }
 
 footer {
-    border-top: 2px solid black;
+    /* border-top: 2px solid black; */
     margin-top: 80px;
     height: min-content;
     width: 100%;
+}
+
+#footerDiv {
+    border-top: 2px solid black;
 }
 
 .customFooterElement {

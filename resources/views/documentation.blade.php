@@ -9,11 +9,11 @@
                 <li>Play music: This option shows the playlists and songs. Click on a playlist to view and listen to the songs. The garbage bin can be used to remove a playlist or song.</li>
                 <li>Make playlist: This option opens a playlist form. Fill in the information to make a new playlist. </li>
                 <li>Add song: This option opens a song form. Fill in the information to add a song to a playlist. </li>
-                <li>User: This option opens forms for user authentication. Here, the user can get an authentication token to access the REST API. First, if you have no account, you need to sign up. Then, if you have no token yet, you need to log in to receive a token. Finally, if you want to no longer access the api, you can log out.</li>
+                <li>User: This option opens forms for user authentication. Here, the user can get an authentication token to access the REST API. First, if you have no account, you need to sign up. Then, you can log in to receive a token. Finally, if you want to no longer access the API, you can log out using the token.</li>
                 <li>Documentation: This option shows the documentation.</li>
             </ul>
         </li>
-        <li>This is a project for the course "SOA & Cloud computing [SOACL]" (2018-2019) from Prof. dr. Kris AERTS & ing. Stijn SCHILDERMANS at Hasselt University & KU Leuven.</li>
+        <li>This is a project for the course "SOA & Cloud computing [SOACL]" (2018-2019) from Prof. Kris AERTS & Stijn SCHILDERMANS at Hasselt University & KU Leuven.</li>
     </ul>
 
     <br>
@@ -47,24 +47,24 @@
                     </ul>
                 </li>
                 <li>
-                    Success Response:
+                    Success response:
                     <ul>
                         <li>Code 200 (OK) with response a JSON object with playlists and songs.</li>
                     </ul>
                 </li>
                 <li>
-                    Error Response:
+                    Error response:
                     <ul>
-                        <li>Code 401 (Unauthorized) with response {"message": "Unauthenticated."}</li>
+                        <li>Code 401 (Unauthorized) with response {"message": "Unauthenticated!"}</li>
                         <li>Code 500 (Internal Server Error)</li>
                     </ul>
                 </li>
                 <li>
-                    Sample Call:
+                    Sample call:
                     <ul>
                         <li>
                             Command:
-                            <p style="word-wrap:break-word; height:100px; overflow-y:scroll; margin:0px;">curl -X Get -H "Content-Type: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjEwM2NlOTI0MWVhMGIxNjFmNGU4MjVkNTc5NGY5ZDIyNjc4ZTJlMzMxMDc5ZDBmMmVkZmM0MzExY2RjYTY0YmQzMmM3MzIyMmFiYTUyMDU5In0.eyJhdWQiOiIzIiwianRpIjoiMTAzY2U5MjQxZWEwYjE2MWY0ZTgyNWQ1Nzk0ZjlkMjI2NzhlMmUzMzEwNzlkMGYyZWRmYzQzMTFjZGNhNjRiZDMyYzczMjIyYWJhNTIwNTkiLCJpYXQiOjE1NTk1OTkyNzgsIm5iZiI6MTU1OTU5OTI3OCwiZXhwIjoxNTkxMjIxNjc4LCJzdWIiOiI4Iiwic2NvcGVzIjpbXX0.w_aQkSThoiZG-z6wIqqMVleb6xwvHpyLLGZrcUbl_F-OY4yEX9-3CVSAEC-2FGQUnQs7xMjMWbDBEHaLz1PgnVdcE-WpwXdaUT3dH4nNo6ubg-HZ0XsgMnlAOzKbtajxp0RhHfZGy89AO-8xfnfE_UzQrLxcsHrGqghsTqvTiADM3GJCtFLxggWcT9Tod6LWXeEtbmZ8Cz09X6gRtO1ioKc6SCTruqq-nPl7ffGvxpqjzej8Qj4bbZyIaXYIvwuOldVjkt3T8kTT2LkgNBCJ-XpT3aAitB87sjENFghq99eJOF3hZfmiPX6Sc1dwrlBGECZQB1UiV3NOAeYnUcP1xjKRvy61NMKsqloRsAzndzL7EQ1Am38jFzyVgPN4HQPsDU5tT-XZJw34Ps4Ch-rtSxFkH2ysrV46NLcgU3k1PaZxiPB1gNRVGpwoSj-jq1s8OsnZ3w7IiGgybMr6BkdouCbJbIHsbbwVcC0bl2Kr_VOOx0YfdqxEBDUXj2Q1XO0JZzGcLGh7DBFhQjXcu28NkcOomIquV34vwuBhbxjpHg4jLEbHQLiVT_xXWTFMHCcs3LRGWuPFqNaVWX22b0riuMSUS4uzwOTWG16DMMMDe8Xwhe-3xDnGMSFsXWQfnK2ZzB1epRMcZf4JlyaTruiPQDrH99HfjIai8Ph8pdJzOS0" "http://laravel-svenbaerten.azurewebsites.net/api/playlists"</p>
+                            <p style="word-wrap:break-word; height:100px; overflow-y:scroll; margin:0px;">curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjEwM2NlOTI0MWVhMGIxNjFmNGU4MjVkNTc5NGY5ZDIyNjc4ZTJlMzMxMDc5ZDBmMmVkZmM0MzExY2RjYTY0YmQzMmM3MzIyMmFiYTUyMDU5In0.eyJhdWQiOiIzIiwianRpIjoiMTAzY2U5MjQxZWEwYjE2MWY0ZTgyNWQ1Nzk0ZjlkMjI2NzhlMmUzMzEwNzlkMGYyZWRmYzQzMTFjZGNhNjRiZDMyYzczMjIyYWJhNTIwNTkiLCJpYXQiOjE1NTk1OTkyNzgsIm5iZiI6MTU1OTU5OTI3OCwiZXhwIjoxNTkxMjIxNjc4LCJzdWIiOiI4Iiwic2NvcGVzIjpbXX0.w_aQkSThoiZG-z6wIqqMVleb6xwvHpyLLGZrcUbl_F-OY4yEX9-3CVSAEC-2FGQUnQs7xMjMWbDBEHaLz1PgnVdcE-WpwXdaUT3dH4nNo6ubg-HZ0XsgMnlAOzKbtajxp0RhHfZGy89AO-8xfnfE_UzQrLxcsHrGqghsTqvTiADM3GJCtFLxggWcT9Tod6LWXeEtbmZ8Cz09X6gRtO1ioKc6SCTruqq-nPl7ffGvxpqjzej8Qj4bbZyIaXYIvwuOldVjkt3T8kTT2LkgNBCJ-XpT3aAitB87sjENFghq99eJOF3hZfmiPX6Sc1dwrlBGECZQB1UiV3NOAeYnUcP1xjKRvy61NMKsqloRsAzndzL7EQ1Am38jFzyVgPN4HQPsDU5tT-XZJw34Ps4Ch-rtSxFkH2ysrV46NLcgU3k1PaZxiPB1gNRVGpwoSj-jq1s8OsnZ3w7IiGgybMr6BkdouCbJbIHsbbwVcC0bl2Kr_VOOx0YfdqxEBDUXj2Q1XO0JZzGcLGh7DBFhQjXcu28NkcOomIquV34vwuBhbxjpHg4jLEbHQLiVT_xXWTFMHCcs3LRGWuPFqNaVWX22b0riuMSUS4uzwOTWG16DMMMDe8Xwhe-3xDnGMSFsXWQfnK2ZzB1epRMcZf4JlyaTruiPQDrH99HfjIai8Ph8pdJzOS0" "http://laravel-svenbaerten.azurewebsites.net/api/playlists"</p>
                         </li>
                         <li>
                             Response:
@@ -292,8 +292,8 @@
                 <li>
                     URL parameters:
                     <ul>
-                        <li>Required: artist = artist of the song</li>
-                        <li>Required: title = title of the song</li>
+                        <li>artist = artist of the song</li>
+                        <li>title = title of the song</li>
                     </ul>
                 </li>
                 <li>
@@ -313,13 +313,13 @@
                     </ul>
                 </li>
                 <li>
-                    Success Response:
+                    Success response:
                     <ul>
                         <li>Code 200 (OK) with response the song lyrics string</li>
                     </ul>
                 </li>
                 <li>
-                    Error Response:
+                    Error response:
                     <ul>
                         <li>Code 500 (Internal Server Error)</li>
                     </ul>
@@ -329,7 +329,7 @@
                     <ul>
                         <li>
                             Command:
-                            <p style="word-wrap: break-word; margin: 0px;">curl -X Get "http://laravel-svenbaerten.azurewebsites.net/api/getSongLyricsByArtistTitle?artist=coldplay&title=viva la vida"</p>
+                            <p style="word-wrap: break-word; margin: 0px;">curl -X GET "http://laravel-svenbaerten.azurewebsites.net/api/getSongLyricsByArtistTitle?artist=coldplay&title=viva la vida"</p>
                         </li> 
                         <li>
                             Return:
@@ -434,13 +434,13 @@
                     </ul>
                 </li>
                 <li>
-                    Success Response:
+                    Success response:
                     <ul>
                         <li>Code 201 (Created) with response {"message": "Successfully created user!"}</li>
                     </ul>
                 </li>
                 <li>
-                    Error Response:
+                    Error response:
                     <ul>
                         <li>Code 422 (Unprocessable Entity) with response {"message": "The given data was invalid.", "errors": { ... }}</li>
                         <li>Code 500 (Internal Server Error)</li>
@@ -492,13 +492,13 @@
                     </ul>
                 </li>
                 <li>
-                    Success Response:
+                    Success response:
                     <ul>
-                        <li>Code 200 (OK) with response {"access_token": [string:access_token], "token_type": "Bearer", "expires_at": [string:date]}</li>
+                        <li>Code 200 (OK) with response {"access_token": [string:token], "token_type": "Bearer", "expires_at": [string:date]}</li>
                     </ul>
                 </li>
                 <li>
-                    Error Response:
+                    Error response:
                     <ul>
                         <li>Code 401 (Unauthorized) with response {"message": "Unauthorized"}</li>
                         <li>Code 500 (Internal Server Error)</li>
@@ -509,7 +509,7 @@
                     <ul>
                         <li>
                             Command:
-                            <p style="word-wrap: break-word; margin:0px;">curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"email": "sven.baerten@outlook.com", "password": "password"}' "http://127.0.0.1:8000/api/auth/login"</p>                      
+                            <p style="word-wrap: break-word; margin:0px;">curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"email": "sven.baerten@outlook.com", "password": "password"}' "http://laravel-svenbaerten.azurewebsites.net/api/auth/login"</p>                      
                         </li>
                         <li>
                             Return:
@@ -555,15 +555,15 @@
                     </ul>
                 </li>
                 <li>
-                    Success Response:
+                    Success response:
                     <ul>
                         <li>Code 200 (OK) with response {"message": "Successfully logged out"}</li>
                     </ul>
                 </li>
                 <li>
-                    Error Response:
+                    Error response:
                     <ul>
-                        <li>Code 401 (Unauthorized) with response {"message": "Unauthenticated."}</li>
+                        <li>Code 401 (Unauthorized) with response {"message": "Unauthenticated!"}</li>
                         <li>Code 500 (Internal Server Error)</li>
                     </ul>
                 </li>
@@ -573,7 +573,11 @@
                         <li>
                             Command:
                             <p style="word-wrap:break-word; height:100px; overflow-y:scroll; margin:0px;">curl -X GET -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjMyZmMxODMyZWJmNDhmMzM5MDdiOWRhM2ExMDBjOWNlZDE4ZTY1OWNlNmZmOTA2Njg1Njc4ZGE1YzlmN2Y4ZDNiZTE5NWJjZmIwZDhiODgwIn0.eyJhdWQiOiIzIiwianRpIjoiMzJmYzE4MzJlYmY0OGYzMzkwN2I5ZGEzYTEwMGM5Y2VkMThlNjU5Y2U2ZmY5MDY2ODU2NzhkYTVjOWY3ZjhkM2JlMTk1YmNmYjBkOGI4ODAiLCJpYXQiOjE1NTk1OTg4MDgsIm5iZiI6MTU1OTU5ODgwOCwiZXhwIjoxNTkxMjIxMjA4LCJzdWIiOiI4Iiwic2NvcGVzIjpbXX0.wpez51MYP3A9UQ2FYT6Euw6PhSn7ZKrDBe3EiSsYXPz6pKzdBkXk2p_ZQgk-QEVnft7mFuLmTKnaCXnkKD_5HIvUZPNK0YGD1Dc-j7owa26HPq2Ujrj6Gi2UNIK3HpO7aZAGe2twmInyxsW9YGD_YpxddhIylvybh2ypKAMyrHgtdqXnpb-XZBXlhUwa4KzH3gcyxX6ZgWaQS8nsupM_jj_dzi-_WGVfNSlXmGYa1qBR9ButTWyxNg3Vh_uwWRtxsGdQkgEaxXIq-YfCiZKzsi_Z6TZZO6YuY8F0PduuYzBi0J67IWPGgHg3tpBcSkpXeeRgoto4IcaGYIujm9rQp185wL8VHOVx0-d01NshWSMmn5KBx9JYHsyti6XR4JDtXD9lmG87YlmdJHZeoxXfs7vKMCyxfePN3RkF9NRlEjHBBieHlgL3SuBw7Gny4-kic0WmKa69DzpuakLVGDYn8UpZqZAWPExzsIsedPnYHrRpFkb0lZPd81pTJ4nerhfPD0-Ykq8Rcw5QItJ4k1S3gFPH_6_uARAS2RJ2F39cE_k43BW_iU-CRWaA7Eq4vIpGBoy1MrNPGRU_KMzHkxu6-XDFbd5rH7PAXZRmrQ29kh2gNLJ4JRJz7VeGcbCql3o8qE83kCIGc52kJcyMhw2pxxBoAyWSsU8TyGDFma0NJF8" "http://laravel-svenbaerten.azurewebsites.net/api/auth/logout"</p>                      
-                        </li>                  
+                        </li>  
+                        <li>
+                            Return:
+                            <p style="margin: 0px;">{"message":"Successfully logged out!"}</p>
+                        </li>                
                     </ul>
                 </li>                
             </ul>
