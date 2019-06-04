@@ -13,6 +13,7 @@ class Start(Resource):
     Handling route "/".
     '''
     def get(self):
+        print('/')
         return current_app.send_static_file('index.html') # Shows the main page with documentation
 
 class SpotifyTrack(Resource):

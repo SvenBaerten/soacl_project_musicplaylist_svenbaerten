@@ -590,7 +590,7 @@
     <h4><li>Other web services made for this application</li></h4>
     <ul>
         <li>Python Flask REST web service: see <a href="http://flask-web-service-svenbaerten.westeurope.azurecontainer.io/" target="_blank">http://flask-web-service-svenbaerten.westeurope.azurecontainer.io/<a> for in-depth information.</li>
-        <li>Node.js REST web service: see <a href="http://nodejs-web-service-svenbaerten.westeurope.azurecontainer.io/" targt="_blank">http://nodejs-web-service-svenbaerten.westeurope.azurecontainer.io/<a> for in-depth information.</li>
+        <li>Node.js REST web service: see <a href="http://nodejs-web-service-svenbaerten.westeurope.azurecontainer.io/" target="_blank">http://nodejs-web-service-svenbaerten.westeurope.azurecontainer.io/<a> for in-depth information.</li>
         <li>C# SOAP web services: see <a href="https://soap-web-service-svenbaerten.azurewebsites.net/DateSplitterService.asmx" target="_blank">https://soap-web-service-svenbaerten.azurewebsites.net/DateSplitterService.asmx</a> & <a href="https://soap-web-service-svenbaerten.azurewebsites.net/YouTubeSplitterService.asmx" target="_blank">https://soap-web-service-svenbaerten.azurewebsites.net/YouTubeSplitterService.asmx</a> for in-depth information.</li>
     </ul>
 
