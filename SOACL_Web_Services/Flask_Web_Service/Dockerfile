@@ -16,5 +16,5 @@ EXPOSE 80
 # Define environment variable
 ENV NAME World
 
-# Run app.py when the container launches
+# Run Flask_REST_server.py when the container launches
 CMD ["python", "Flask_REST_server.py"]

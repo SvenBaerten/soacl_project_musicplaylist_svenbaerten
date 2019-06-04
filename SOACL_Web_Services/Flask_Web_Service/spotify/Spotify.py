@@ -25,7 +25,6 @@ class Spotify():
         '''
         if int(time.time()) - self.previousTime > 3590 or self.token == None: # Spotify API token needs to be renewed every hour.
             self.previousTime = int(time.time())
-            print("Refresh token")
 
             # User settings: (Spotify account: sven.baerten@student.uhasselt.be)
             client_id = "dfc5911d647841d2b38b9df9b81577a5"      # Enter your client id here
@@ -146,4 +145,4 @@ class Spotify():
 
 if __name__ == '__main__':
     spotify = Spotify()
-    # print(spotify.get_track_info('Kanye West', 'Stronger'))
+    print(spotify.get_track_info('Kanye West', 'Stronger'))

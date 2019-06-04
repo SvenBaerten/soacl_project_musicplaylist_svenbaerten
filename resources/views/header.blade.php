@@ -1,5 +1,5 @@
 <nav class="navbar navbar-static-top fixed-top navbar-expand-lg scrolling-navbar navbar-dark bg-dark headerCustom"> <!--Based on https://mdbootstrap.com/snippets/jquery/mdbootstrap/102518?action=full_screen_mode-->
-    <a class="navbar-brand" href="#"><strong>PlayMusic</strong></a>
+    <a class="navbar-brand" href="javascript:void(0);" id="navBrand"><strong>PlayMusic</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

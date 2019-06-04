@@ -28,6 +28,6 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-        Passport::personalAccessClientId(3); //svenbaerten => Client ID: 3
+        Passport::personalAccessClientId(3);
     }
 }

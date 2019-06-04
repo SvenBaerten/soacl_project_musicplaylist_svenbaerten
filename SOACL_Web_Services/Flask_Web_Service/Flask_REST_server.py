@@ -4,6 +4,7 @@ from flask_restful import Api, Resource
 import spotify.Spotify as Spotify
 from flask_cors import CORS
 
+# Reference to MySQL connector: https://dev.mysql.com/doc/connector-python/en/
 import mysql.connector
 from mysql.connector import errorcode
 
@@ -89,7 +90,5 @@ if __name__ == '__main__':
     # Route setup
     api.add_resource(Start, "/")
     api.add_resource(SpotifyTrack, "/api/track/<string:artist>/<string:title>", resource_class_kwargs={'spotify':spotify, 'db':db})
-    
-    # app.run(debug=True, port=80)
-    # app.run('0.0.0.0', port=80)
-    app.run('localhost', port=8800)
+       
+    app.run('0.0.0.0', port=80)

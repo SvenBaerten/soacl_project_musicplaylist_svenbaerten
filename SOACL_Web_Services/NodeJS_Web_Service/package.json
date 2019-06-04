@@ -1,7 +1,7 @@
 {
-  "name": "nodejs_web_service_svenbaerten",
+  "name": "nodejs-web-service-svenbaerten",
   "version": "1.0.0",
-  "description": "Node.js web service running in Docker",
+  "description": "Node.js web service running in Docker for splitting a date of format YEAR-MONTH-DAY into the year, the month (with name) and the day.",
   "author": "Sven Baerten <sven.baerten@outlook.com>",
   "main": "server.js",
   "scripts": {

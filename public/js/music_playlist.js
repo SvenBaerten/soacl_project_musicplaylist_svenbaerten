@@ -26,6 +26,7 @@ function getCSRFToken() {
 var mainContainer = document.getElementById('container');
 
 // Header hyperlink buttons 
+var navBrand = document.getElementById('navBrand');
 var navPlayMusic = document.getElementById('navPlayMusic');
 var navModifyPlaylist = document.getElementById('navModifyPlaylist');
 var navModifySong = document.getElementById('navModifySong');
@@ -33,6 +34,7 @@ var navUser = document.getElementById('navUser');
 var navDocumentation = document.getElementById('navDocumentation');
 
 // Detect click
+navBrand.addEventListener("click", loadView_PlayMusic, false);
 navPlayMusic.addEventListener("click", loadView_PlayMusic, false);
 navModifyPlaylist.addEventListener("click", loadView_PlaylistForm, false);
 navModifySong.addEventListener("click", loadView_SongForm, false);
@@ -494,7 +496,7 @@ function showSongs(playlistIndex) {
  */
 function prepareDate(year, month, day) {
     if (year == 0) {
-        return "Unknown"
+        return "Unknown";
     }
     else {
         if (month == "null") {

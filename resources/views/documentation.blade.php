@@ -49,13 +49,13 @@
                 <li>
                     Success response:
                     <ul>
-                        <li>Code 200 (OK) with response a JSON object with playlists and songs.</li>
+                        <li>Code 200 (OK) with response a JSON object with playlists and songs like in 'Sample call - Response'</li>
                     </ul>
                 </li>
                 <li>
                     Error response:
                     <ul>
-                        <li>Code 401 (Unauthorized) with response {"message": "Unauthenticated!"}</li>
+                        <li>Code 401 (Unauthorized) with response {"message": "Unauthorized!"}</li>
                         <li>Code 500 (Internal Server Error)</li>
                     </ul>
                 </li>
@@ -281,7 +281,7 @@
                 </li>                
             </ul>
         </li>
-
+        
         <br>
         
         <li>
@@ -292,8 +292,8 @@
                 <li>
                     URL parameters:
                     <ul>
-                        <li>artist = artist of the song</li>
-                        <li>title = title of the song</li>
+                        <li>artist: the artist of the song</li>
+                        <li>title: the title of the song</li>
                     </ul>
                 </li>
                 <li>
@@ -315,7 +315,7 @@
                 <li>
                     Success response:
                     <ul>
-                        <li>Code 200 (OK) with response the song lyrics string</li>
+                        <li>Code 200 (OK) with response the song lyrics string like in 'Sample call - Response'</li>
                     </ul>
                 </li>
                 <li>
@@ -332,7 +332,7 @@
                             <p style="word-wrap: break-word; margin: 0px;">curl -X GET "http://laravel-svenbaerten.azurewebsites.net/api/getSongLyricsByArtistTitle?artist=coldplay&title=viva la vida"</p>
                         </li> 
                         <li>
-                            Return:
+                            Response:
                             <pre style="word-wrap: break-word; height: 100px; overflow-y: scroll; white-space: pre-line; margin: 0px;">
                                 I used to rule the world
                                 Seas would rise when I gave the word
@@ -454,7 +454,7 @@
                             <p style="word-wrap: break-word; margin: 0px;">curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"name": "sven", "email": "sven.baerten@outlook.com", "password": "password", "password_confirmation": "password"}' "http://laravel-svenbaerten.azurewebsites.net/api/auth/signup"</p>                      
                         </li>
                         <li>
-                            Return:
+                            Response:
                             <p style="margin: 0px;">{"message":"Successfully created user!"}</p>
                         </li>
                     
@@ -500,7 +500,7 @@
                 <li>
                     Error response:
                     <ul>
-                        <li>Code 401 (Unauthorized) with response {"message": "Unauthorized"}</li>
+                        <li>Code 401 (Unauthorized) with response {"message": "Unauthorized!"}</li>
                         <li>Code 500 (Internal Server Error)</li>
                     </ul>
                 </li>
@@ -512,7 +512,7 @@
                             <p style="word-wrap: break-word; margin:0px;">curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"email": "sven.baerten@outlook.com", "password": "password"}' "http://laravel-svenbaerten.azurewebsites.net/api/auth/login"</p>                      
                         </li>
                         <li>
-                            Return:
+                            Response:
                             <pre style="word-wrap: break-word; height: 100px; overflow-y: scroll; white-space: pre-line; margin: 0px;">
                                 {
                                 "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImU5MmJmYTU0MDEyZGU4YzFhNGVhYTk0Yzg2NWU5ODBjOTA2MzY5N2Y3ZWI2Mjg3MDJjYjM3YjM3MmNjNjU4MzA2MWZhZGE2ZTZmYjFjOTMzIn0.eyJhdWQiOiIzIiwianRpIjoiZTkyYmZhNTQwMTJkZThjMWE0ZWFhOTRjODY1ZTk4MGM5MDYzNjk3ZjdlYjYyODcwMmNiMzdiMzcyY2M2NTgzMDYxZmFkYTZlNmZiMWM5MzMiLCJpYXQiOjE1NTk1OTc3NjMsIm5iZiI6MTU1OTU5Nzc2MywiZXhwIjoxNTkxMjIwMTYzLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.Yu0K6uAeLg-7iIA4gJdmCzmlRbx0E5FGIzm4FtE_iPzvKXz6HpI_P-fXXo0YVR2b-IDb16ha7pHaT0Oj9qKDGOvKN8oy6jiOJk04ivkk4AAKAV8w6tlApmBnl_9Xiex6LFN3LvDDoxb4j-5fIVxXxPPwV4boQ1NzZXjolBnmJGjGg6ybwuwDT2F2dnqwye7N2YKCw4xn6heEUasFae-LNsoUmHCQb4MlXBjcMYheoPWjAZu4lqBCAHF_DDnGAIwonZlNBf14LPQcPaUUzYAXyQOl7iH8yvSFBB5nLRsrHvKEqGLGQ5piXkD5dsKZqW-6m-Nbq9UjwLjJrEFX9tZVCFRRuLB5Ji89OYFc4kYCooA-pTb7vuQbIPuXmUjuEsQhs3vkHsaMa4UgJlO85_g5mFhycYisK1wzkELwzei0BxjmwEjmd5RPPrOfLiizK6f2gLLBFu5H_CPC5pL8PBwU8l50yl6BIj-5rwWFmWLBCxF-3pMCTt5VWa3XfIt92-58AATDeW7USK_ELjjj3B6R9EPfl2FueIdF-ENKj1-pjlvA5YVXi298bUdoYToj3vWMUHxu9jxewHWPL4jxE8IS59hOQq1wM9rFjM1iw5JhS5AgmogPocAS5yy-5Q20lyc18hN5ZTZTP9UqOZ2T2EuN3qyqejKFtZLFBNaMgsr6LNI",
@@ -557,18 +557,18 @@
                 <li>
                     Success response:
                     <ul>
-                        <li>Code 200 (OK) with response {"message": "Successfully logged out"}</li>
+                        <li>Code 200 (OK) with response {"message": "Successfully logged out!"}</li>
                     </ul>
                 </li>
                 <li>
                     Error response:
                     <ul>
-                        <li>Code 401 (Unauthorized) with response {"message": "Unauthenticated!"}</li>
+                        <li>Code 401 (Unauthorized) with response {"message": "Unauthorized!"}</li>
                         <li>Code 500 (Internal Server Error)</li>
                     </ul>
                 </li>
                 <li>
-                    Sample Call:
+                    Sample call:
                     <ul>
                         <li>
                             Command:

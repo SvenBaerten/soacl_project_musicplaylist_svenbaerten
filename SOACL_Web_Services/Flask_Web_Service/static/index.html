@@ -38,52 +38,52 @@
                         </ul>
                     </li>
                     <li>
-                        Success Response:
+                        Success response:
                         <ul>
-                            <li>Code 200 (OK) with response a JSON object with track information.</li>
+                            <li>Code 200 (OK) with response a JSON object with track information like in 'Sample call - Response'</li>
                         </ul>
                     </li>
                     <li>
-                        Error Response:
+                        Error response:
                         <ul>
                             <li>Code 500 (Internal Server Error)</li>
                         </ul>
                     </li>
                     <li>
-                        Sample Call:
+                        Sample call:
                         <ul>
                             <li>
                                 Command:
-                                <p style="word-wrap:break-word; margin:0px;">curl -X Get -H "Content-Type: application/json" "http://flask-web-service-svenbaerten.westeurope.azurecontainer.io/api/track/kanye%20west/stronger"</p>
+                                <p style="word-wrap:break-word; margin:0px;">curl -X GET -H "Content-Type: application/json" "http://flask-web-service-svenbaerten.westeurope.azurecontainer.io/api/track/kanye%20west/stronger"</p>
                             </li>
                             <li>
                                 Response:
                                 <pre style="word-wrap:break-word; height:100px; overflow-y:scroll; white-space:pre-line; margin:0px;">
-                                        {
-                                            "track": {
-                                              "track_id": "4fzsfWzRhPawzqhX8Qt9F3",
-                                              "track_name": "Stronger",
-                                              "track_genre": "rap",
-                                              "track_number": 3,
-                                              "track_popularity": 79,
-                                              "track_isExplicit": true
-                                            },
-                                            "artist": {
-                                              "artist_id": "5K4W6rqBFWDnAN6FQUkS6x",
-                                              "artist_name": "Kanye West",
-                                              "artist_image": "https://i.scdn.co/image/a12d8543e28d71d9f1e7f5f363c1a6c73316f9e6",
-                                              "artist_popularity": 92,
-                                              "artist_followers": 9762249
-                                            },
-                                            "album": {
-                                              "album_id": "5fPglEDz9YEwRgbLRvhCZy",
-                                              "album_name": "Graduation",
-                                              "album_release_date": "2007-09-11",
-                                              "album_release_date_precision": "day",
-                                              "album_cover": "https://i.scdn.co/image/2be99e6ce2bb214a9072e315f4e17948af30af75",
-                                              "album_total_tracks": 13
-                                            }
+                                    {
+                                        "track": {
+                                            "track_id": "4fzsfWzRhPawzqhX8Qt9F3",
+                                            "track_name": "Stronger",
+                                            "track_genre": "rap",
+                                            "track_number": 3,
+                                            "track_popularity": 79,
+                                            "track_isExplicit": true
+                                        },
+                                        "artist": {
+                                            "artist_id": "5K4W6rqBFWDnAN6FQUkS6x",
+                                            "artist_name": "Kanye West",
+                                            "artist_image": "https://i.scdn.co/image/a12d8543e28d71d9f1e7f5f363c1a6c73316f9e6",
+                                            "artist_popularity": 92,
+                                            "artist_followers": 9762249
+                                        },
+                                        "album": {
+                                            "album_id": "5fPglEDz9YEwRgbLRvhCZy",
+                                            "album_name": "Graduation",
+                                            "album_release_date": "2007-09-11",
+                                            "album_release_date_precision": "day",
+                                            "album_cover": "https://i.scdn.co/image/2be99e6ce2bb214a9072e315f4e17948af30af75",
+                                            "album_total_tracks": 13
                                         }
+                                    }
                                 <pre>
                             </li>
                         </ul>
