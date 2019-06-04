@@ -209,7 +209,7 @@ function sendSongForm() {
     
     if (youTubeCodeValue == "") {
         statusField.textContent = "Fill in the YouTube code!";
-        nameField.style.backgroundColor = "LightCoral";
+        youTubeCodeField.style.backgroundColor = "LightCoral";
     } else {
         var url = base_url + "/songs";              
         var data = {'youtube_code': youTubeCodeValue, 'playlist_name': playlistValue, 'rating': ratingFieldValue};
@@ -226,11 +226,11 @@ function sendSongForm() {
         .then(function(response) {
             if (response.status == 201) {
                 statusField.textContent = "Song is added!";
-                nameField.style.backgroundColor = "lightgreen";
+                youTubeCodeField.style.backgroundColor = "lightgreen";
             }
             else {
                 statusField.textContent = "Song is not added!";
-                nameField.style.backgroundColor = "LightCoral";
+                youTubeCodeField.style.backgroundColor = "LightCoral";
             }
         });
     }            
