@@ -377,21 +377,26 @@ function showPlaylists() {
 
         var x =
         '<div id="playlist' + playlist_nr.toString() + '" class="card mb-1 text-white bg-dark" onclick="showSongs(' + playlist_nr.toString() + ')">' +
-            '<div class="row no-gutters">' +
-             
-              '<div class="col-md-2">' +  // style="border: 1px solid green"
-                '<img src="' + playlist['image'] + '" class="card-img" style="object-fit: cover; width: 100%; height:100%">' + 
-              '</div>' +
+            '<img class="card-img-top" src="' + playlist['image'] + '" style="object-fit: cover; width: 100%; height:100%"/>' +
 
-              '<div class="col-md-10">' +
-                '<div class="card-body d-flex justify-content-between">' +
-                  '<h6 class="card-title">' + playlist['name'] + '</h6>' +
-                  '<button type="button" class="btn btn-danger btn-sm" onclick="deletePlaylist(' +  playlist['id'].toString() + ')"><i class="fa fa-trash fa-sm"></i></button>' +
-                '</div>' +
-              '</div>' +
-
+            '<div class="card-body justify-content-between" style="text-align:center;">' +
+                '<h6 class="card-title">' + playlist['name'] + '</h6>' +
+                '<button type="button" class="btn btn-danger btn-sm" onclick="deletePlaylist(' +  playlist['id'].toString() + ')"><i class="fa fa-trash fa-sm"></i></button>' +
             '</div>' +
         '</div>';
+        
+            // OLD version: IGNORE
+            // '<div class="row no-gutters">' +             
+            //   '<div class="col-md-2">' +  // style="border: 1px solid green"
+            //     '<img src="' + playlist['image'] + '" class="card-img" style="object-fit: cover; width: 100%; height:100%">' + 
+            //   '</div>' +
+            //   '<div class="col-md-10">' +
+            //     '<div class="card-body d-flex justify-content-between">' +
+            //       '<h6 class="card-title">' + playlist['name'] + '</h6>' +
+            //       '<button type="button" class="btn btn-danger btn-sm" onclick="deletePlaylist(' +  playlist['id'].toString() + ')"><i class="fa fa-trash fa-sm"></i></button>' +
+            //     '</div>' +
+            //   '</div>' +
+            // '</div>' +        
 
         playlistContainer.innerHTML += x;       
     }
@@ -410,7 +415,7 @@ function showSongs(playlistIndex) {
     songs = playlists[playlistIndex]['songs'];
 
     songContainer.innerHTML = '';
-    var song_tiles = '<div class="card-deck">';
+    var song_tiles = '<div class="card-deck" style="margin-right:0; margin-left:0;">';
 
     for (var song_nr = 0; song_nr < songs.length; song_nr++) {
         // song_nr is the index in the songs json variable
@@ -434,7 +439,7 @@ function showSongs(playlistIndex) {
                         '<strong>Album</strong>' + // ' <a class="spotify" href="https://open.spotify.com/album/' + song['spotify_album_code'] + '" target="_blank"><i class="fab fa-spotify"></i></a>' + 
                         '<br/>' + song['album'] + '<br/>' +
                         '<strong>Release date</strong>' +
-                        '<br/>' + song['day'] + ' ' + song['month_name'] + ' ' + song['year'] + '<br/>' +
+                        '<br/>' + prepareDate(song['year'], song['month_name'], song['day'], ) + '<br/>' +
                     '</p>' +
 
                     '<span>' + 
@@ -454,6 +459,31 @@ function showSongs(playlistIndex) {
     song_tiles += '</div>';
 
     songContainer.innerHTML = song_tiles;
+}
+
+/**
+ * Convert the year, the month and the day to a single string.
+ * 
+ * @param {number} year The year (e.g. 1997).
+ * @param {string} month The month (e.g. 'March').
+ * @param {number} day The day (e.g. 28).
+ * 
+ * @return {string} The date as a string.
+ */
+function prepareDate(year, month, day) {
+    if (year == 0) {
+        return "Unknown"
+    }
+    else {
+        if (month == "null") {
+            if (day == 0) return year.toString();
+            else return month.toString() + " " + year.toString();
+        } 
+        else {
+            if (day == 0) return month.toString() + year.toString();
+            else return day.toString() + " " + month.toString() + " " + year.toString();
+        }
+    }
 }
 
 /**
@@ -521,7 +551,7 @@ function deleteSong(songId) {
  * @param {string} title The title of the song.
  */
 function showSongLyricsByArtistTitle(artist, title) {
-    var url = base_url + "/api/getLyricsByArtistTitle/?artist=" + artist + "&title=" + title;  
+    var url = base_url + "/api/getSongLyricsByArtistTitle/?artist=" + artist + "&title=" + title;  
 
     fetch(url, {
         credentials: "same-origin",

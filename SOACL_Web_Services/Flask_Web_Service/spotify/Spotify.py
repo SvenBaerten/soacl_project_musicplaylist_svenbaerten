@@ -8,6 +8,9 @@ import base64
 from collections import Counter
 
 class Spotify():
+    '''
+    Class for retrieving data from the Spotify Web API.
+    '''
     def __init__(self):
         '''
         Constructor.
@@ -20,7 +23,7 @@ class Spotify():
         '''
         Method that refreshes the authentication token.
         '''
-        if int(time.time()) - self.previousTime > 3590 or self.token == None: # Spotify token needs to be renewed every hour.
+        if int(time.time()) - self.previousTime > 3590 or self.token == None: # Spotify API token needs to be renewed every hour.
             self.previousTime = int(time.time())
             print("Refresh token")
 
@@ -36,13 +39,13 @@ class Spotify():
             headers = {'Authorization': authorization, 'Content-Type':'application/x-www-form-urlencoded'}
 
             # Get response.
-            r = requests.post(post_url, data=payload, headers=headers)
+            response = requests.post(post_url, data=payload, headers=headers)
 
             # Parse response.
-            status = r.status_code
+            status = response.status_code
             if status != requests.codes.ok:
-                return 'Error'
-            json_data = json.loads(r.text)
+                return response
+            json_data = json.loads(response.text)
 
             self.token = json_data['access_token']           
                 
@@ -66,7 +69,7 @@ class Spotify():
 
         status = response.status_code
         if status != requests.codes.ok:
-            return status
+            return response
 
         track_json_raw = json.loads(response.text)
 
@@ -89,7 +92,7 @@ class Spotify():
 
         status = response.status_code
         if status != requests.codes.ok:
-            return status
+            return response
 
         artist_json_raw = json.loads(response.text)
 
@@ -97,7 +100,7 @@ class Spotify():
 
     def get_track_info(self, artist, title):
         '''
-        Get compressed Spotify information about a track.
+        Get compressed Spotify information about a music track.
 
         Arguments:
         - artist: The artist name (e.g. Kanye%20West).
@@ -128,7 +131,7 @@ class Spotify():
         # Parse raw JSON artist object.
         artist_json_raw = self.search_artist(artist_id)
         genres = artist_json_raw['genres'] # E.g. [ "chicago rap", "pop rap", "rap" ]
-        genre = genres[-1]  # genre = Counter([sub for g in genres for sub in g.replace(';',' ').replace(',',' ').replace('-',' ').replace(' - ',' ').split()]).most_common()[0][0]
+        genre = genres[-1]  # Other option: genre = Counter([sub for g in genres for sub in g.replace(';',' ').replace(',',' ').replace('-',' ').replace(' - ',' ').split()]).most_common()[0][0]
         artist_image =  artist_json_raw["images"][0]["url"]
         artist_popularity = artist_json_raw["popularity"]
         artist_followers = artist_json_raw["followers"]['total']     
@@ -143,4 +146,4 @@ class Spotify():
 
 if __name__ == '__main__':
     spotify = Spotify()
-    print(spotify.get_track_info('Kanye West', 'Stronger'))
+    # print(spotify.get_track_info('Kanye West', 'Stronger'))

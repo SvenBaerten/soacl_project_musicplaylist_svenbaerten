@@ -11,8 +11,64 @@
         <p>Functions:</p>
         <ul>
             <li>
-                GET /api/dateSplitter/[date]: split a date with format 'year-month-day' into year, month and day. <br>
-                Example: date 2019-2-22 gives {"year": "2019", "month": "2", "monthNameLong": "February", "monthNameShort": "Feb.", "day": "22"}. 
+                Split a date into the year, the month (with name) and the day.
+                <ul>
+                    <li>URL: /api/dateSplitter/[date]</li>
+                    <li>Method: GET</li>
+                    <li>
+                        URL parameters:
+                        <ul>
+                            <li>date: the date of format year-month-day</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Headers:
+                        <ul>
+                            <li>None</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Body parameters:
+                        <ul>
+                            <li>
+                                None
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Success Response:
+                        <ul>
+                            <li>Code 200 (OK) with response a JSON object with date information.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Error Response:
+                        <ul>
+                            <li>Code 500 (Internal Server Error)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Sample Call:
+                        <ul>
+                            <li>
+                                Command:
+                                <p style="word-wrap:break-word; margin:0px;">curl -X GET -H "Content-Type: application/json" "http://nodejs-web-service-svenbaerten.westeurope.azurecontainer.io/api/dateSplitter/2019-8-21"</p>
+                            </li>
+                            <li>
+                                Response:
+                                <pre style="word-wrap:break-word; white-space:pre-line; margin:0px;">
+                                    {
+                                        "year":2019,
+                                        "month":8,
+                                        "monthNameLong":"August",
+                                        "monthNameShort":"Aug.",
+                                        "day":21
+                                     }
+                                <pre>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

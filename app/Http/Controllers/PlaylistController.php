@@ -42,7 +42,7 @@ class PlaylistController extends Controller
        $playlist->image = $request['image'];
        $playlist->rating = $request['rating'];
        $playlist->save();
-       return;  
+       return $playlist;  
     }
 
     /**
@@ -96,7 +96,7 @@ class PlaylistController extends Controller
     /**
      * Get all playlists including the songs.
      * 
-     * @return Json
+     * @return \Illuminate\Http\Response
      */
     public function getPlaylistsWithSongs() {
         $data = array();

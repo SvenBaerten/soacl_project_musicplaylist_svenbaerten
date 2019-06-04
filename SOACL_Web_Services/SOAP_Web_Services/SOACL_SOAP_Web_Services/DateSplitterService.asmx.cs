@@ -4,9 +4,9 @@ using System.Web.Services;
 namespace SOACL_SOAP_Web_Services
 {
     /// <summary>
-    /// This service splits a date into a year, a month (full and short name) and a day.
+    /// This service splits a date into the year, the month (full and short name) and the day.
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "https://soap-web-service-svenbaerten.azurewebsites.net")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -25,8 +25,8 @@ namespace SOACL_SOAP_Web_Services
             {
                 year = 0;
                 month = 0;
-                monthNameLong = "January";
-                monthNameShort = "Jan.";
+                monthNameLong = "null";
+                monthNameShort = "null";
                 day = 0;                
             }
 
@@ -40,7 +40,16 @@ namespace SOACL_SOAP_Web_Services
             }
         }
 
-        [WebMethod]
+        const string WebMethodDescription = @"
+        <table>
+            <tr>
+                <td>Summary:</td><td>Splits a date into the year, the month (with name), and the day.</td>
+            </tr>
+            <tr>
+                <td>Expected date:</td><td>Format year-month-day e.g. 1981-12-15. If missing, default values for year, month and day are 0, and for the month name 'null'. </td>
+            </tr>
+        </table>";
+        [WebMethod(Description = WebMethodDescription)] // From MikeM and Ahmed Magdy, see https://stackoverflow.com/questions/6390806/asmx-web-service-documentation
         public Date Date2YearMonthDay(string Date)
         {
             // Error catching
@@ -57,28 +66,38 @@ namespace SOACL_SOAP_Web_Services
             string[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
             string[] monthsShort = { "Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec." };
 
+            int year = 0;
+            int month = 0;
+            string monthNameLong = "null";
+            string monthNameShort = "null";
+            int day = 0;
+
             if (numOfItems == 1)
             {
-                int year = dateSplitted[0];
-                return new Date(year, 0, "null", "null", 0);
+                year = dateSplitted[0];
             }
             else if (numOfItems == 2)
             {
-                int year = dateSplitted[0];
-                int month = dateSplitted[1];
-                string monthNameLong = months[month-1];
-                string monthNameShort = monthsShort[month-1];           
-                return new Date(year, month, monthNameLong, monthNameShort, 0);
+                year = dateSplitted[0];                
+                if (dateSplitted[1] >= 1 && dateSplitted[1] <= 12)
+                {
+                    month = dateSplitted[1];
+                    monthNameLong = months[month - 1];
+                    monthNameShort = monthsShort[month - 1];
+                }
             }
             else
             {
-                int year = dateSplitted[0];
-                int month = dateSplitted[1];
-                string monthNameLong = months[month-1];
-                string monthNameShort = monthsShort[month-1];
-                int day = dateSplitted[2];
-                return new Date(year, month, monthNameLong, monthNameShort, day);
+                year = dateSplitted[0];
+                if (dateSplitted[1] >= 1 && dateSplitted[1] <= 12)
+                {
+                    month = dateSplitted[1];
+                    monthNameLong = months[month - 1];
+                    monthNameShort = monthsShort[month - 1];
+                }
+                day = dateSplitted[2];                
             }
+            return new Date(year, month, monthNameLong, monthNameShort, day);
         }
     }
 }

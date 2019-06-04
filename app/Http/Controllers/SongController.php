@@ -79,17 +79,15 @@ class SongController extends Controller
         // if ($err) ; 
 
         $json = json_decode($response, true);
-        // return $json;
         $youtube_entity = $json['items'][0];
         $youtube_snippet = $youtube_entity['snippet'];
         $youtube_title = $youtube_snippet['title'];
-        // $youtube_description = $youtube_snippet['description'];
         $youtube_thumbnail = $youtube_snippet['thumbnails']['medium']['url'];
 
 
         // Call custom made SOAP web service 'YouTubeSplitterService.asmx' -> YouTube2ArtistTrack 
-        // It converts a YouTube video title to the artist and track title.
-        // For example 'Coldplay - Paradise (Official Video)' to artist 'Coldplay' and track 'Paradise'.
+        // It converts a YouTube music video title to the artist and the track title.
+        // For example 'Coldplay - Paradise (Official Video)' gives artist 'Coldplay' and track 'Paradise'.
         if ($FLAG_USE_AZURE) 
         {
             $soapWrapper = new SoapWrapper();
@@ -122,15 +120,14 @@ class SongController extends Controller
         $title = $response->YouTube2ArtistTrackResult->track;
 
 
-        // Get song data from Spotify REST API: https://developer.spotify.com/documentation/web-api/
-        // We call here a custom made REST service in Python Flask that provides a simple interface to the Spotify API.
+        // We call here a custom made REST service in Python Flask that provides a simple interface to the Spotify REST API (https://developer.spotify.com/documentation/web-api/).
         if ($FLAG_USE_AZURE) 
         {
             $flask_base_url = 'http://flask-web-service-svenbaerten.westeurope.azurecontainer.io/api/track';
         }
         else
         {            
-            $flask_base_url = 'http://192.168.99.100:8000/api/track'; // When running docker container do '-p 8000:80'.
+            $flask_base_url = 'http://192.168.99.100:8000/api/track'; // To run docker container: docker run -p 8000:80 -d svenbaerten/flask-web-service-svenbaerten
         }
         
         $flask_url = $flask_base_url . '/' . str_replace(' ', '%20', str_replace('/', '%20', $artist)) . '/' . str_replace(' ', '%20', $title); // GET: http://127.0.0.1:5000/api/track/<string:artist>/<string:title>
@@ -165,7 +162,7 @@ class SongController extends Controller
 
         // $FLAG_USE_NODEJS_DATESPLITTER = False => Call custom made SOAP web service DateSplitterService.asmx (Date2YearMonthDay).   
         // $FLAG_USE_NODEJS_DATESPLITTER = True => Call custom made Node.js web service dateSplitter.
-        // It converts a date to the year, month (also name) and day.
+        // It converts a date to the year, the month (also name) and the day.
         // For example 2011-10-24 -> year 2011, month 10 (also October) and day 24.
         if ($FLAG_USE_NODEJS_DATESPLITTER == false)
         {
@@ -177,7 +174,7 @@ class SongController extends Controller
                     ->wsdl('https://soap-web-service-svenbaerten.azurewebsites.net/DateSplitterService.asmx?WSDL')
                     ->trace(true)
                     ->classmap([
-                        YouTube2ArtistTrackRequest::class,
+                        Date2YearMonthDayRequest::class,
                     ]);
                 });
             }
@@ -189,7 +186,7 @@ class SongController extends Controller
                     ->wsdl('http://localhost:60946/DateSplitterService.asmx?WSDL')
                     ->trace(true)
                     ->classmap([
-                        YouTube2ArtistTrackRequest::class,
+                        Date2YearMonthDayRequest::class,
                     ]);
                 });
             }
@@ -210,7 +207,7 @@ class SongController extends Controller
             }
             else
             {                
-                $nodejs_dateSplitter_base_url = 'http://192.168.99.100:8001/api/dateSplitter';
+                $nodejs_dateSplitter_base_url = 'http://192.168.99.100:8001/api/dateSplitter'; // To run docker container: docker run -p 8001:80 -d svenbaerten/nodejs-web-service-svenbaerten
             }
             $nodejs_url = $nodejs_dateSplitter_base_url . '/' . $release_date;
 
@@ -218,10 +215,6 @@ class SongController extends Controller
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $nodejs_url,
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30000,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "GET",
                 CURLOPT_HTTPHEADER => array(
                     // Set here required headers

@@ -11,8 +11,13 @@ use Artisaninweb\SoapWrapper\SoapWrapper;
 
 class SongLyricsController extends Controller
 {    
-    protected function getLyrics($artist, $song)
-    {
+    /**
+     * Get the song lyrics by its artist and title.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSongLyricsByArtistTitle(Request $request)  // https://itsolutionstuff.com/post/how-to-get-query-strings-value-in-laravel-5example.html
+    {        
         // Call the Chart Lyrics SOAP API: http://www.chartlyrics.com/api.aspx
         $soapWrapper = new SoapWrapper();
         $soapWrapper->add('ChartLyrics', function ($service) {
@@ -24,17 +29,11 @@ class SongLyricsController extends Controller
               ]);
           });
         $response = $soapWrapper->call('ChartLyrics.SearchLyricDirect', [
-            new ChartLyricsRequest($artist, $song)
+            new ChartLyricsRequest($request->input('artist'), $request->input('title'))
         ]);          
         
         $lyric = $response->SearchLyricDirectResult->Lyric;
 
         return preg_replace("/\r|\n/", "<br>", $lyric);
     }
-
-    public function getLyricsByArtistTitle(Request $request)  // https://itsolutionstuff.com/post/how-to-get-query-strings-value-in-laravel-5example.html
-    {        
-        return SongLyricsController::getLyrics($request->input('artist'), $request->input('title'));
-    }
-
 }

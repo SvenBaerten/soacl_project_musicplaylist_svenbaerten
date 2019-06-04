@@ -109,6 +109,11 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
+    /**
+     * Show the user forms.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getUserView() 
     {
         return view('user');

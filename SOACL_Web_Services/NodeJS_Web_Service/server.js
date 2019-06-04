@@ -16,16 +16,17 @@ app.use(cors());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname+'/index.html'));
-  });
+});
 
 app.get('/api/dateSplitter/:date', (req, res) => {
-  res.json(dateSplitter(req.params.date));
+    res.json(dateSplitter(req.params.date));
 });
 
 
 /**
- * Split a date into the year, month (also long and short names) and day.
- * @param {*} date The date we want to split. Valid formats: '2019', '2019-1' and '2019-1-20.
+ * Split a date into the year, the month (also long and short names) and the day.
+ * 
+ * @param {string} date The date we want to split. The format must be YEAR-MONTH-DAY e.g. '2019-1-20' or '2019-1' or '2019'.
  */
 function dateSplitter(date) {
     var dateSplitted = date.split('-');
@@ -44,16 +45,20 @@ function dateSplitter(date) {
         year = dateSplitted[0];
     }
     else if (numOfItems == 2) {
-        year = dateSplitted[0];
-        month = dateSplitted[1];
-        monthNameLong = months[parseInt(month)-1];
-        monthNameShort = monthsShort[parseInt(month)-1];
+        year = dateSplitted[0];        
+        if (dateSplitted[1] >= 1 && dateSplitted[1] <= 12) {
+            month = dateSplitted[1];
+            monthNameLong = months[parseInt(month)-1];
+            monthNameShort = monthsShort[parseInt(month)-1];
+        }
     }
     else {
         year = dateSplitted[0];
-        month = dateSplitted[1];
-        monthNameLong = months[parseInt(month)-1];
-        monthNameShort = monthsShort[parseInt(month)-1];
+        if (dateSplitted[1] >= 1 && dateSplitted[1] <= 12) {
+            month = dateSplitted[1];
+            monthNameLong = months[parseInt(month)-1];
+            monthNameShort = monthsShort[parseInt(month)-1];
+        }
         day = dateSplitted[2];
     }
 
@@ -64,7 +69,7 @@ function dateSplitter(date) {
     // <monthNameShort>Mar.</monthNameShort>
     // <day>4</day>
 
-    return {'year':year, 'month':month, 'monthNameLong':monthNameLong, 'monthNameShort':monthNameShort, 'day':day};
+    return {'year':parseInt(year), 'month':parseInt(month), 'monthNameLong':monthNameLong, 'monthNameShort':monthNameShort, 'day':parseInt(day)};
 }
 
 app.listen(PORT, HOST);

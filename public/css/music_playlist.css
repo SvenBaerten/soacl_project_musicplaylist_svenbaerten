@@ -1,9 +1,12 @@
 header {
-    margin-bottom: 85px;
+    margin-bottom: 90px;
+}
+
+.headerCustom {
+    border-bottom: 2px solid black;
 }
 
 #container {
-    /* border: 3px solid red; */
     width: 90vw;
 }     
 
@@ -14,7 +17,7 @@ header {
 #music_container {
     border: solid 3px #343a40;
     border-radius: 10px;
-    padding-bottom: 15px;
+    padding: 10px;
 }
 
 #song_container {
@@ -22,11 +25,16 @@ header {
 }
 
 #playlist_container {
+    height: 100%;
+}
+
+.statusForm {
+    word-wrap: break-word;
 }
 
 .songTile {
-    margin: 5px 0px;
-    min-width: 30%;/*20%;*/
+    margin: 0px 5px 10px 5px !important;
+    min-width: 20%;
     border: solid 1px #343a40;
 }
 
@@ -74,9 +82,14 @@ header {
 }
 
 footer {
-    margin-top: 30px;
-    height: 6vh;
+    border-top: 2px solid black;
+    margin-top: 80px;
+    height: min-content;
     width: 100%;
+}
+
+.customFooterElement {
+    margin: 0px;
 }
 
 #uhasselt-kuleuven {

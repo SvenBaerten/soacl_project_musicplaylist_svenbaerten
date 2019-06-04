@@ -6,13 +6,14 @@
         <li>This application functions as a media player with which you can create and listen to playlists of your favorite songs.</li>
         <li>There are 5 tabs in the navigation bar:
             <ul>
-                <li>Play music: This option shows the playlists and songs. Click on a playlist to view the songs. The garbage bin is used to remove a playlist or song.</li>
+                <li>Play music: This option shows the playlists and songs. Click on a playlist to view and listen to the songs. The garbage bin can be used to remove a playlist or song.</li>
                 <li>Make playlist: This option opens a playlist form. Fill in the information to make a new playlist. </li>
                 <li>Add song: This option opens a song form. Fill in the information to add a song to a playlist. </li>
-                <li>User: This option opens forms for user authentication. Here, the user can get an authentication token to access the REST API. First, if you have no account, you need to sign up. Then, if you have no token yet, you need to login to receive a token. Finally, if you want to no longer access the api, you can logout.</li>
+                <li>User: This option opens forms for user authentication. Here, the user can get an authentication token to access the REST API. First, if you have no account, you need to sign up. Then, if you have no token yet, you need to log in to receive a token. Finally, if you want to no longer access the api, you can log out.</li>
                 <li>Documentation: This option shows the documentation.</li>
             </ul>
         </li>
+        <li>This is a project for the course "SOA & Cloud computing [SOACL]" (2018-2019) from Prof. dr. Kris AERTS & ing. Stijn SCHILDERMANS at Hasselt University & KU Leuven.</li>
     </ul>
 
     <br>
@@ -20,16 +21,21 @@
     <h4><li>Laravel REST API</li></h4>
     <ul>
         <li>
-            Get playlists with songs as a JSON object.
+            Get playlists with songs as a JSON object. An API token is required.
             <ul>
                 <li>URL: /api/playlists</li>
                 <li>Method: GET</li>
-                <li>URL parameters: None</li>
+                <li>
+                    URL parameters:
+                    <ul>
+                        <li>None</li>
+                    </ul>
+                </li>
                 <li>
                     Headers:
                     <ul>
                         <li>Content-Type: application/json</li>
-                        <li>Authorization: Bearer [token, obtainable in 'User' tab or authentication REST API see below]</li>
+                        <li>Authorization: Bearer [token, obtainable in 'User' tab or authentication REST API (see below)]</li>
                     </ul>
                 </li>
                 <li>
@@ -43,7 +49,7 @@
                 <li>
                     Success Response:
                     <ul>
-                        <li>Code 200 (OK) with response a JSON object with playlists and songs.<li>
+                        <li>Code 200 (OK) with response a JSON object with playlists and songs.</li>
                     </ul>
                 </li>
                 <li>
@@ -281,7 +287,7 @@
         <li>
             Get lyrics of a song by its artist and title.
             <ul>
-                <li>URL: /api/getLyricsByArtistTitle?artist=[artist]&title=[song title]</li>
+                <li>URL: /api/getSongLyricsByArtistTitle?artist=[artist]&title=[song title]</li>
                 <li>Method: GET</li>
                 <li>
                     URL parameters:
@@ -323,7 +329,7 @@
                     <ul>
                         <li>
                             Command:
-                            <p style="word-wrap: break-word; margin: 0px;">curl -X Get "http://127.0.0.1:8000/api/getLyricsByArtistTitle?artist=coldplay&title=viva la vida"</p>
+                            <p style="word-wrap: break-word; margin: 0px;">curl -X Get "http://laravel-svenbaerten.azurewebsites.net/api/getSongLyricsByArtistTitle?artist=coldplay&title=viva la vida"</p>
                         </li> 
                         <li>
                             Return:
@@ -391,7 +397,7 @@
                     Notes:
                     <ul>
                         <li>
-                            This Laravel web service uses a SOAP web service from <a href="http://www.chartlyrics.com/" target="_blank">"http://www.chartlyrics.com/"</a> which only has lyrics of songs up to 2011.
+                            This Laravel web service uses a SOAP web service from <a href="http://www.chartlyrics.com" target="_blank">"http://www.chartlyrics.com/"</a> which only has lyrics of songs up to 2011.
                         </li>
                     </ul>
                 </li>
@@ -445,11 +451,11 @@
                     <ul>
                         <li>
                             Command:
-                            <p style="word-wrap: break-word; margin: 0px;">curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"name": "sven", "email": "sven.baerten@outlook.com", "password": "password", "password_confirmation": "password"}' "http://127.0.0.1:8000/api/auth/signup"</p>                      
+                            <p style="word-wrap: break-word; margin: 0px;">curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"name": "sven", "email": "sven.baerten@outlook.com", "password": "password", "password_confirmation": "password"}' "http://laravel-svenbaerten.azurewebsites.net/api/auth/signup"</p>                      
                         </li>
                         <li>
                             Return:
-                            <p>{"message":"Successfully created user!"}</p>
+                            <p style="margin: 0px;">{"message":"Successfully created user!"}</p>
                         </li>
                     
                     </ul>
@@ -488,7 +494,7 @@
                 <li>
                     Success Response:
                     <ul>
-                        <li>Code 200 (OK) with response {"access_token": [string:access_token], "token_type": "string:Bearer", "expires_at": [string:date]}</li>
+                        <li>Code 200 (OK) with response {"access_token": [string:access_token], "token_type": "Bearer", "expires_at": [string:date]}</li>
                     </ul>
                 </li>
                 <li>
@@ -503,11 +509,11 @@
                     <ul>
                         <li>
                             Command:
-                            <p style="word-wrap: break-word;">curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"email": "sven.baerten@outlook.com", "password": "password"}' "http://127.0.0.1:8000/api/auth/login"</p>                      
+                            <p style="word-wrap: break-word; margin:0px;">curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"email": "sven.baerten@outlook.com", "password": "password"}' "http://127.0.0.1:8000/api/auth/login"</p>                      
                         </li>
                         <li>
                             Return:
-                            <pre style="word-wrap: break-word; height: 100px; overflow-y: scroll; white-space: pre-line;">
+                            <pre style="word-wrap: break-word; height: 100px; overflow-y: scroll; white-space: pre-line; margin: 0px;">
                                 {
                                 "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImU5MmJmYTU0MDEyZGU4YzFhNGVhYTk0Yzg2NWU5ODBjOTA2MzY5N2Y3ZWI2Mjg3MDJjYjM3YjM3MmNjNjU4MzA2MWZhZGE2ZTZmYjFjOTMzIn0.eyJhdWQiOiIzIiwianRpIjoiZTkyYmZhNTQwMTJkZThjMWE0ZWFhOTRjODY1ZTk4MGM5MDYzNjk3ZjdlYjYyODcwMmNiMzdiMzcyY2M2NTgzMDYxZmFkYTZlNmZiMWM5MzMiLCJpYXQiOjE1NTk1OTc3NjMsIm5iZiI6MTU1OTU5Nzc2MywiZXhwIjoxNTkxMjIwMTYzLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.Yu0K6uAeLg-7iIA4gJdmCzmlRbx0E5FGIzm4FtE_iPzvKXz6HpI_P-fXXo0YVR2b-IDb16ha7pHaT0Oj9qKDGOvKN8oy6jiOJk04ivkk4AAKAV8w6tlApmBnl_9Xiex6LFN3LvDDoxb4j-5fIVxXxPPwV4boQ1NzZXjolBnmJGjGg6ybwuwDT2F2dnqwye7N2YKCw4xn6heEUasFae-LNsoUmHCQb4MlXBjcMYheoPWjAZu4lqBCAHF_DDnGAIwonZlNBf14LPQcPaUUzYAXyQOl7iH8yvSFBB5nLRsrHvKEqGLGQ5piXkD5dsKZqW-6m-Nbq9UjwLjJrEFX9tZVCFRRuLB5Ji89OYFc4kYCooA-pTb7vuQbIPuXmUjuEsQhs3vkHsaMa4UgJlO85_g5mFhycYisK1wzkELwzei0BxjmwEjmd5RPPrOfLiizK6f2gLLBFu5H_CPC5pL8PBwU8l50yl6BIj-5rwWFmWLBCxF-3pMCTt5VWa3XfIt92-58AATDeW7USK_ELjjj3B6R9EPfl2FueIdF-ENKj1-pjlvA5YVXi298bUdoYToj3vWMUHxu9jxewHWPL4jxE8IS59hOQq1wM9rFjM1iw5JhS5AgmogPocAS5yy-5Q20lyc18hN5ZTZTP9UqOZ2T2EuN3qyqejKFtZLFBNaMgsr6LNI",
                                 "token_type": "Bearer",
@@ -528,17 +534,25 @@
             <ul>
                 <li>URL: /api/auth/logout</li>
                 <li>Method: GET</li>
-                <li>URL parameters: None</li>
+                <li>
+                    URL parameters:
+                    <ul>
+                        <li>None</li>
+                    </ul>
+                </li>
                 <li>
                     Headers:
                     <ul>
                         <li>X-Requested-With: XMLHttpRequest</li>
                         <li>Content-Type: application/json</li>
-                        <li>Authorization: Bearer [token]<li>
+                        <li>Authorization: Bearer [token]</li>
                     </ul>                    
                 </li>
                 <li>
-                    Body parameters: None
+                    Body parameters:
+                    <ul>
+                        <li>None</li>
+                    </ul>
                 </li>
                 <li>
                     Success Response:
@@ -558,7 +572,7 @@
                     <ul>
                         <li>
                             Command:
-                            <p style="word-wrap: break-word;">curl -X GET -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjMyZmMxODMyZWJmNDhmMzM5MDdiOWRhM2ExMDBjOWNlZDE4ZTY1OWNlNmZmOTA2Njg1Njc4ZGE1YzlmN2Y4ZDNiZTE5NWJjZmIwZDhiODgwIn0.eyJhdWQiOiIzIiwianRpIjoiMzJmYzE4MzJlYmY0OGYzMzkwN2I5ZGEzYTEwMGM5Y2VkMThlNjU5Y2U2ZmY5MDY2ODU2NzhkYTVjOWY3ZjhkM2JlMTk1YmNmYjBkOGI4ODAiLCJpYXQiOjE1NTk1OTg4MDgsIm5iZiI6MTU1OTU5ODgwOCwiZXhwIjoxNTkxMjIxMjA4LCJzdWIiOiI4Iiwic2NvcGVzIjpbXX0.wpez51MYP3A9UQ2FYT6Euw6PhSn7ZKrDBe3EiSsYXPz6pKzdBkXk2p_ZQgk-QEVnft7mFuLmTKnaCXnkKD_5HIvUZPNK0YGD1Dc-j7owa26HPq2Ujrj6Gi2UNIK3HpO7aZAGe2twmInyxsW9YGD_YpxddhIylvybh2ypKAMyrHgtdqXnpb-XZBXlhUwa4KzH3gcyxX6ZgWaQS8nsupM_jj_dzi-_WGVfNSlXmGYa1qBR9ButTWyxNg3Vh_uwWRtxsGdQkgEaxXIq-YfCiZKzsi_Z6TZZO6YuY8F0PduuYzBi0J67IWPGgHg3tpBcSkpXeeRgoto4IcaGYIujm9rQp185wL8VHOVx0-d01NshWSMmn5KBx9JYHsyti6XR4JDtXD9lmG87YlmdJHZeoxXfs7vKMCyxfePN3RkF9NRlEjHBBieHlgL3SuBw7Gny4-kic0WmKa69DzpuakLVGDYn8UpZqZAWPExzsIsedPnYHrRpFkb0lZPd81pTJ4nerhfPD0-Ykq8Rcw5QItJ4k1S3gFPH_6_uARAS2RJ2F39cE_k43BW_iU-CRWaA7Eq4vIpGBoy1MrNPGRU_KMzHkxu6-XDFbd5rH7PAXZRmrQ29kh2gNLJ4JRJz7VeGcbCql3o8qE83kCIGc52kJcyMhw2pxxBoAyWSsU8TyGDFma0NJF8" "http://127.0.0.1:8000/api/auth/logout"</p>                      
+                            <p style="word-wrap:break-word; height:100px; overflow-y:scroll; margin:0px;">curl -X GET -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjMyZmMxODMyZWJmNDhmMzM5MDdiOWRhM2ExMDBjOWNlZDE4ZTY1OWNlNmZmOTA2Njg1Njc4ZGE1YzlmN2Y4ZDNiZTE5NWJjZmIwZDhiODgwIn0.eyJhdWQiOiIzIiwianRpIjoiMzJmYzE4MzJlYmY0OGYzMzkwN2I5ZGEzYTEwMGM5Y2VkMThlNjU5Y2U2ZmY5MDY2ODU2NzhkYTVjOWY3ZjhkM2JlMTk1YmNmYjBkOGI4ODAiLCJpYXQiOjE1NTk1OTg4MDgsIm5iZiI6MTU1OTU5ODgwOCwiZXhwIjoxNTkxMjIxMjA4LCJzdWIiOiI4Iiwic2NvcGVzIjpbXX0.wpez51MYP3A9UQ2FYT6Euw6PhSn7ZKrDBe3EiSsYXPz6pKzdBkXk2p_ZQgk-QEVnft7mFuLmTKnaCXnkKD_5HIvUZPNK0YGD1Dc-j7owa26HPq2Ujrj6Gi2UNIK3HpO7aZAGe2twmInyxsW9YGD_YpxddhIylvybh2ypKAMyrHgtdqXnpb-XZBXlhUwa4KzH3gcyxX6ZgWaQS8nsupM_jj_dzi-_WGVfNSlXmGYa1qBR9ButTWyxNg3Vh_uwWRtxsGdQkgEaxXIq-YfCiZKzsi_Z6TZZO6YuY8F0PduuYzBi0J67IWPGgHg3tpBcSkpXeeRgoto4IcaGYIujm9rQp185wL8VHOVx0-d01NshWSMmn5KBx9JYHsyti6XR4JDtXD9lmG87YlmdJHZeoxXfs7vKMCyxfePN3RkF9NRlEjHBBieHlgL3SuBw7Gny4-kic0WmKa69DzpuakLVGDYn8UpZqZAWPExzsIsedPnYHrRpFkb0lZPd81pTJ4nerhfPD0-Ykq8Rcw5QItJ4k1S3gFPH_6_uARAS2RJ2F39cE_k43BW_iU-CRWaA7Eq4vIpGBoy1MrNPGRU_KMzHkxu6-XDFbd5rH7PAXZRmrQ29kh2gNLJ4JRJz7VeGcbCql3o8qE83kCIGc52kJcyMhw2pxxBoAyWSsU8TyGDFma0NJF8" "http://laravel-svenbaerten.azurewebsites.net/api/auth/logout"</p>                      
                         </li>                  
                     </ul>
                 </li>                
@@ -566,5 +580,15 @@
         </li>
 
     </ul>
+
+    <br>
+
+    <h4><li>Other web services made for this application</li></h4>
+    <ul>
+        <li>Python Flask REST web service: see <a href="http://flask-web-service-svenbaerten.westeurope.azurecontainer.io/" target="_blank">http://flask-web-service-svenbaerten.westeurope.azurecontainer.io/<a> for in-depth information.</li>
+        <li>Node.js REST web service: see <a href="http://nodejs-web-service-svenbaerten.westeurope.azurecontainer.io/" targt="_blank">http://nodejs-web-service-svenbaerten.westeurope.azurecontainer.io/<a> for in-depth information.</li>
+        <li>C# SOAP web services: see <a href="https://soap-web-service-svenbaerten.azurewebsites.net/DateSplitterService.asmx" target="_blank">https://soap-web-service-svenbaerten.azurewebsites.net/DateSplitterService.asmx</a> & <a href="https://soap-web-service-svenbaerten.azurewebsites.net/YouTubeSplitterService.asmx" target="_blank">https://soap-web-service-svenbaerten.azurewebsites.net/YouTubeSplitterService.asmx</a> for in-depth information.</li>
+    </ul>
+
 </ol>
 

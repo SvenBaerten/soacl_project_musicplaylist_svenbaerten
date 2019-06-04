@@ -30,4 +30,4 @@ Route::group([
 );
 
 Route::resource('/playlists', 'PlaylistAPIController')->middleware('auth:api');
-Route::get('/getLyricsByArtistTitle', 'SongLyricsController@getLyricsByArtistTitle');
+Route::get('/getSongLyricsByArtistTitle', 'SongLyricsController@getSongLyricsByArtistTitle');

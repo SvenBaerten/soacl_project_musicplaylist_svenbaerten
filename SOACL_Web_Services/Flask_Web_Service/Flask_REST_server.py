@@ -6,10 +6,16 @@ from flask_cors import CORS
 # Reference to Flask: http://flask.pocoo.org/
 
 class Start(Resource):
+    '''
+    Handling "/".
+    '''
     def get(self):
-        return current_app.send_static_file('index.html')
+        return current_app.send_static_file('index.html') # Shows the main page with documentation
 
 class SpotifyTrack(Resource):
+    '''
+    Handling "/api/track/<string:artist>/<string:title>".
+    '''
     def __init__(self, spotify):
         self.spotify = spotify
 
@@ -35,6 +41,5 @@ if __name__ == '__main__':
     api.add_resource(Start, "/")
     api.add_resource(SpotifyTrack, "/api/track/<string:artist>/<string:title>", resource_class_kwargs={'spotify':spotify})
     
-
     # app.run(debug=True, port=80)
     app.run(host='0.0.0.0', port=80)

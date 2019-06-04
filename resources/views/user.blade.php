@@ -24,7 +24,7 @@
 
         <div class="form-group">
             <label>Status:</label>
-            <p id="formAuthUserSignupStatus">Unknown</p>
+            <p id="formAuthUserSignupStatus" class="statusForm">Unknown</p>
         </div>   
 
     </div>
@@ -46,7 +46,7 @@
 
         <div class="form-group">
             <label>Status:</label>
-            <p id="formAuthUserLoginStatus">Unknown</p>
+            <p id="formAuthUserLoginStatus" class="statusForm">Unknown</p>
         </div> 
 
     </div>
@@ -62,7 +62,7 @@
         </div>  
         <div class="form-group">
             <label>Status:</label>
-            <p id="formAuthUserLogoutStatus">Unknown</p>
+            <p id="formAuthUserLogoutStatus" class="statusForm">Unknown</p>
         </div> 
     </div>
     <button type="button" class="btn btn-primary" onclick="sendAuthUserLogoutForm()">Submit</button>
