@@ -20,7 +20,9 @@ class Date2YearMonthDayRequest
     }
 
     /**
-     * @return string
+     * Get the date.
+     * 
+     * @return string The date.
      */
     public function getDate()
     {

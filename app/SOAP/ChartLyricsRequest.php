@@ -17,7 +17,7 @@ class ChartLyricsRequest
     /**
      * Date2YearMonthDayRequest constructor.
      * 
-     * @param string $artist, sSong 
+     * @param string $artist, song 
      */
     public function __construct($artist, $song)
     {
@@ -26,7 +26,9 @@ class ChartLyricsRequest
     }
 
     /**
-     * @return string
+     * Get the artist.
+     * 
+     * @return string The artist.
      */
     public function getArtist()
     {
@@ -34,7 +36,9 @@ class ChartLyricsRequest
     }
 
     /**
-     * @return string
+     * Get the song.
+     * 
+     * @return string The song.
      */
     public function getSong()
     {
