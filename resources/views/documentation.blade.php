@@ -330,7 +330,7 @@
                     <ul>
                         <li>
                             Command:
-                            <p style="word-wrap: break-word; margin: 0px;">curl -X GET "http://laravel-svenbaerten.azurewebsites.net/api/getSongLyricsByArtistTitle?artist=coldplay&title=viva la vida"</p>
+                            <p style="word-wrap: break-word; margin: 0px;">curl -X GET "http://laravel-svenbaerten.azurewebsites.net/api/getSongLyricsByArtistTitle?artist=coldplay&title=viva%20la%20vida"</p>
                         </li> 
                         <li>
                             Response:
