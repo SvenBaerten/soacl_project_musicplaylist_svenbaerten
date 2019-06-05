@@ -34,6 +34,7 @@
                 <li>
                     Headers:
                     <ul>
+                        <li>X-Requested-With: XMLHttpRequest</li>
                         <li>Content-Type: application/json</li>
                         <li>Authorization: Bearer [token, obtainable in 'User' tab or authentication REST API (see below)]</li>
                     </ul>
