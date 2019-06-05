@@ -610,7 +610,7 @@ function onYouTubeIframeAPIReady() {
         playerVars: {
             'color': 'white',
             'playlist': 'taJ60kskkns,FG0fTKAqZ5g',
-            'origin': "http://www.youtube.com"           
+            // 'origin': "http://www.youtube.com"           
         },
         events: {
             onReady: initialize
@@ -759,8 +759,3 @@ function formatTime(time) {
 
 // Call this by default;
 loadPlaylistsWithSongs();
-
-document.getElementById("video-placeholder").style.visibility = "visible";
-document.getElementById("video-placeholder").style.display = "block";
-document.getElementById("video-placeholder").style.visibility = "hidden";
-document.getElementById("video-placeholder").style.display = "none";
