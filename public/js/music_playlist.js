@@ -425,6 +425,8 @@ function showPlaylists() {
         playlistContainer.innerHTML += x;       
     }
     playlistContainer.innerHTML += '</div>';
+
+    onYouTubeIframeAPIReady();
 }
 
 /**
@@ -759,3 +761,6 @@ function formatTime(time) {
 
 // Call this by default;
 loadPlaylistsWithSongs();
+
+// document.getElementById("video-placeholder").style.visibility = "hidden";
+// document.getElementById("myP").style.visibility = "hidden";
