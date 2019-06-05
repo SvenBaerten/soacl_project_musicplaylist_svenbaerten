@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/dateSplitter/:date', (req, res) => {
+    console.log(req.params.date);
     res.json(dateSplitter(req.params.date));
 });
 

@@ -395,6 +395,8 @@ function showPlaylists() {
     var songContainer = document.getElementById("song_container");
     songContainer.innerHTML = '';
 
+    playlistContainer.innerHTML = '<div class="card-deck" style="margin-right:0; margin-left:0;">';
+
     for (var playlist_nr = 0; playlist_nr < playlists.length; playlist_nr++) {
         // playlist_nr is the index in the playlists json variable
         var playlist = playlists[playlist_nr];
@@ -424,6 +426,7 @@ function showPlaylists() {
 
         playlistContainer.innerHTML += x;       
     }
+    playlistContainer.innerHTML = '</div>';
 }
 
 /**
