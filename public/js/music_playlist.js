@@ -3,11 +3,10 @@
 //
 
 // Define base url for fetch api calls
-var flag_azure = false;
+var flag_azure = true;
 var base_url = '';
 if (flag_azure) base_url = "http://laravel-svenbaerten.azurewebsites.net";
-else base_url = "http://127.0.0.1:8000";
-// base_url = "http://localhost/musicplaylist/public"
+else base_url = "http://127.0.0.1:8000"; // base_url = "http://localhost/musicplaylist/public"
 
 //
 // Code for handling website navigation and loading html views.
