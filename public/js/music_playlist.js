@@ -610,7 +610,7 @@ function onYouTubeIframeAPIReady() {
         playerVars: {
             'color': 'white',
             'playlist': 'taJ60kskkns,FG0fTKAqZ5g',
-            // 'origin': "http://www.youtube.com"           
+            'origin': "http://www.youtube.com"           
         },
         events: {
             onReady: initialize
