@@ -36,7 +36,7 @@ class SpotifyTrack(Resource):
         if self.db['connector'] != None and track_info != None:
             try:
                 if (self.db['connector'].is_connected() == False):
-                    self.db['connector'].ping(reconnect=True, attempts=5, delay=1)
+                    self.db['connector'].ping(reconnect=True, attempts=3, delay=1)
 
                 sql = "INSERT INTO song_searches (artist, title, genre, album, release_date) VALUES (%s, %s, %s, %s, %s)"
                 val = (track_info['artist']['artist_name'], track_info['track']['track_name'], track_info['track']['track_genre'], track_info['album']['album_name'], track_info['album']['album_release_date'])
