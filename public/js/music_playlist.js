@@ -401,7 +401,7 @@ function showPlaylists() {
 
         var x =
         '<div id="playlist' + playlist_nr.toString() + '" class="card mb-1 text-white bg-dark" onclick="showSongs(' + playlist_nr.toString() + ')">' +
-            '<img class="card-img-top w-100" src="' + playlist['image'] + '" style="object-fit: cover; height:100%"/>' +
+            '<img class="card-img-top" src="' + playlist['image'] + '"/>' +
 
             '<div class="card-body justify-content-between" style="text-align:center;">' +
                 '<h6 class="card-title">' + playlist['name'] + '</h6>' +
