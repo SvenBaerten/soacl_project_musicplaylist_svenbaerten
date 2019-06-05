@@ -761,6 +761,6 @@ function formatTime(time) {
 loadPlaylistsWithSongs();
 
 document.getElementById("video-placeholder").style.visibility = "visible";
-document.getElementById("video-placeholder").style.display = "none";
-document.getElementById("video-placeholder").style.visibility = "hidden";
 document.getElementById("video-placeholder").style.display = "block";
+document.getElementById("video-placeholder").style.visibility = "hidden";
+document.getElementById("video-placeholder").style.display = "none";

@@ -5,6 +5,7 @@
     <ul>
         <li>This application functions as a media player with which you can create and listen to playlists of your favorite songs.</li>
         <li>URL: <a href="http://laravel-svenbaerten.azurewebsites.net/" target="blank_">http://laravel-svenbaerten.azurewebsites.net/</a></li>
+        <li>Supported web browsers: Mozilla Firefox & Microsoft Edge</li>
         <li>There are 5 tabs in the navigation bar:
             <ul>
                 <li>Play music: This option shows the playlists and songs. Click on a playlist to view and listen to the songs. The garbage bin can be used to remove a playlist or song.</li>
