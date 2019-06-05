@@ -56,7 +56,7 @@
                 <li>
                     Error response:
                     <ul>
-                        <li>Code 401 (Unauthorized) with response {"message": "Unauthorized!"}</li>
+                        <li>Code 401 (Unauthorized) with response {"message": "Unauthenticated."}</li>
                         <li>Code 500 (Internal Server Error)</li>
                     </ul>
                 </li>
