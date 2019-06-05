@@ -388,9 +388,7 @@ function loadPlaylistsWithSongs() {
 /**
  * Show playlists.
  */
-function showPlaylists() {
-    onYouTubeIframeAPIReady();
-    
+function showPlaylists() {   
     var playlistContainer = document.getElementById("playlist_container");
     playlistContainer.innerHTML = '';
     var songContainer = document.getElementById("song_container");
@@ -625,6 +623,7 @@ function onYouTubeIframeAPIReady() {
  */
 function initialize() {
     //
+    console.log("load vid");
 }
 
 /**
