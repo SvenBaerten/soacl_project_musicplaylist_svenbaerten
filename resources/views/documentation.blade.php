@@ -8,7 +8,7 @@
             <ul>
                 <li>Play music: This option shows the playlists and songs. Click on a playlist to view and listen to the songs. The garbage bin can be used to remove a playlist or song.</li>
                 <li>Make playlist: This option opens a playlist form. Fill in the information to make a new playlist. </li>
-                <li>Add song: This option opens a song form. Fill in the information to add a song to a playlist. </li>
+                <li>Add song: This option opens a song form. Fill in the information to add a YouTube song to a playlist. The YouTube music video title needs to have the format 'artist - song title' ('-' is essential).</li>
                 <li>User: This option opens forms for user authentication. Here, the user can get an authentication token to access the REST API. First, if you have no account, you need to sign up. Then, you can log in to receive a token. Finally, if you want to no longer access the API, you can log out using the token.</li>
                 <li>Documentation: This option shows the documentation.</li>
             </ul>

@@ -3,7 +3,7 @@
 //
 
 // Define base url for fetch api calls
-var flag_azure = true;
+var flag_azure = false;
 var base_url = '';
 if (flag_azure) base_url = "http://laravel-svenbaerten.azurewebsites.net";
 else base_url = "http://127.0.0.1:8000";
@@ -501,10 +501,7 @@ function prepareDate(year, month, day) {
         return "Unknown";
     }
     else {
-        if (month == "null") {
-            if (day == 0) return year.toString();
-            else return month.toString() + " " + year.toString();
-        } 
+        if (month == "null") return year.toString(); 
         else {
             if (day == 0) return month.toString() + year.toString();
             else return day.toString() + " " + month.toString() + " " + year.toString();

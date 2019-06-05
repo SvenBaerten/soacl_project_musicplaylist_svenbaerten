@@ -84,7 +84,6 @@ class SongController extends Controller
         $youtube_title = $youtube_snippet['title'];
         $youtube_thumbnail = $youtube_snippet['thumbnails']['medium']['url'];
 
-
         // Call custom made SOAP web service 'YouTubeSplitterService.asmx' -> YouTube2ArtistTrack 
         // It converts a YouTube music video title to the artist and the track title.
         // For example 'Coldplay - Paradise (Official Video)' gives artist 'Coldplay' and track 'Paradise'.
@@ -118,7 +117,8 @@ class SongController extends Controller
         ]);                
         $artist = $response->YouTube2ArtistTrackResult->artist;
         $title = $response->YouTube2ArtistTrackResult->track;
-
+        
+        if ($artist == "null" || $title == "null") return response()->json('The YouTube music video title is invalid!', 500);
 
         // We call here a custom made REST service in Python Flask that provides a simple interface to the Spotify REST API (https://developer.spotify.com/documentation/web-api/).
         if ($FLAG_USE_AZURE) 
